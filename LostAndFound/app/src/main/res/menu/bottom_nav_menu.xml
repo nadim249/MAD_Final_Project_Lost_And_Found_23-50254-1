@@ -6,14 +6,14 @@
         android:title="Home" />
     <item
         android:id="@+id/nav_post"
-        android:icon="@drawable/homep"
+        android:icon="@drawable/add_b"
         android:title="Post" />
     <item
         android:id="@+id/nav_chat"
-        android:icon="@drawable/homep"
+        android:icon="@drawable/chat"
         android:title="Chat" />
     <item
         android:id="@+id/nav_notification"
-        android:icon="@drawable/homep"
+        android:icon="@drawable/bell"
         android:title="Alerts" />
 </menu>
