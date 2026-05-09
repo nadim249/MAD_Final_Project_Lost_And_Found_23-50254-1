@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- Blue Fill -->
+    <solid android:color="#6B8DD6" />
+
+    <!-- 20dp Corner Radius -->
+    <corners android:radius="20dp" />
+</shape>

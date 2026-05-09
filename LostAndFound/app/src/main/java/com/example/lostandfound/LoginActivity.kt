@@ -23,11 +23,11 @@ class LoginActivity : AppCompatActivity() {
         val tvSignUp = findViewById<TextView>(R.id.tvSignUp)
         val tvForgotPassword = findViewById<TextView>(R.id.tvForgotPassword)
 
-        // Static Navigation to Dashboard
+        // Navigation to Dashboard
         btnSignIn.setOnClickListener {
             // TODO: Navigate to your Dashboard Activity once created
-            // startActivity(Intent(this, DashboardActivity::class.java))
-            // finish()
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
 
         // Navigate to Sign Up

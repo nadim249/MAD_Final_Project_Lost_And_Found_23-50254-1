@@ -23,4 +23,18 @@
 
     <!-- Accents -->
     <color name="errorColor">#EF4444</color>
+
+    <!-- Tags & Badges -->
+    <color name="lostColor">#EF4444</color>
+    <color name="lostLightColor">#FEE2E2</color>
+    <color name="foundColor">#10B981</color>
+    <color name="foundLightColor">#D1FAE5</color>
+
+    <!-- Chat -->
+    <color name="chatGray">#F3F4F6</color>
+    <!-- Tags & Special Colors -->
+    <color name="tagBackground">#F3F0FF</color>
+    <color name="tagText">#6B4EAA</color>
+    <color name="aiMatchColor">#A855F7</color>
+    <color name="iconBackground">#E0F2FE</color>
 </resources>

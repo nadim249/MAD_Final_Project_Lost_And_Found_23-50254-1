@@ -25,12 +25,12 @@ class RegisterActivity : AppCompatActivity() {
         // Static action to simulate registration
         btnCreateAccount.setOnClickListener {
             Toast.makeText(this, "Account Created Successfully!", Toast.LENGTH_SHORT).show()
-            finish() // Goes back to Login screen
+            finish()
         }
 
         // Navigate back to Login
         tvBackToLogin.setOnClickListener {
-            finish() // Closes RegisterActivity and shows LoginActivity underneath
+            finish()
         }
     }
 }
