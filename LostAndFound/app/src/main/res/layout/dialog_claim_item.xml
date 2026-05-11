@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog_rounded"
+    android:padding="24dp">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvDialogTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Claim This Item"
+        android:textColor="#1A1A2E"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/btnClose"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Subtitle -->
+    <TextView
+        android:id="@+id/tvDialogSubtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="Please provide details to verify ownership of this item."
+        android:textColor="#888888"
+        android:textSize="13sp"
+        app:layout_constraintEnd_toStartOf="@+id/btnClose"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDialogTitle" />
+
+    <!-- Close Button -->
+    <ImageView
+        android:id="@+id/btnClose"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:src="@drawable/delete"
+        android:clickable="true"
+        android:focusable="true"
+        app:tint="@color/errorColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Verification Details Label -->
+    <TextView
+        android:id="@+id/tvVerificationLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Verification Details"
+        android:textColor="#1A1A2E"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDialogSubtitle" />
+
+    <!-- Verification Details Input -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardVerification"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        app:cardBackgroundColor="#F8FBFF"
+        app:cardCornerRadius="14dp"
+        app:cardElevation="0dp"
+        app:strokeColor="#6B8DD6"
+        app:strokeWidth="1.5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvVerificationLabel">
+
+        <EditText
+            android:id="@+id/etVerificationDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="Describe unique features that prove this is yours (e.g., what's inside, serial numbers, scratches, etc.)"
+            android:textColorHint="#AAAAAA"
+            android:textColor="#1A1A2E"
+            android:textSize="13sp"
+            android:padding="14dp"
+            android:inputType="textMultiLine|textCapSentences" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Preferred Meeting Location Label -->
+    <TextView
+        android:id="@+id/tvMeetingLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="Preferred Meeting Location"
+        android:textColor="#1A1A2E"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardVerification" />
+
+    <!-- Meeting Location Input -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardMeetingLocation"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        app:cardBackgroundColor="#F5F5F5"
+        app:cardCornerRadius="14dp"
+        app:cardElevation="0dp"
+        app:strokeColor="#E8E8E8"
+        app:strokeWidth="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMeetingLabel">
+
+        <EditText
+            android:id="@+id/etMeetingLocation"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:hint="e.g., Student Center Lobby"
+            android:textColorHint="#AAAAAA"
+            android:textColor="#1A1A2E"
+            android:textSize="14sp"
+            android:paddingHorizontal="16dp"
+            android:inputType="textCapSentences"
+            android:singleLine="true" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Contact Method Label -->
+    <TextView
+        android:id="@+id/tvContactLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="Contact Method"
+        android:textColor="#1A1A2E"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardMeetingLocation" />
+
+    <!-- Contact Method Input -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardContactMethod"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        app:cardBackgroundColor="#F5F5F5"
+        app:cardCornerRadius="14dp"
+        app:cardElevation="0dp"
+        app:strokeColor="#E8E8E8"
+        app:strokeWidth="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvContactLabel">
+
+        <EditText
+            android:id="@+id/etContactMethod"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:hint="Phone number or email"
+            android:textColorHint="#AAAAAA"
+            android:textColor="#1A1A2E"
+            android:textSize="14sp"
+            android:paddingHorizontal="16dp"
+            android:inputType="textEmailAddress"
+            android:singleLine="true" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Security Check Banner -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/securityCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        app:cardBackgroundColor="#F0FBF4"
+        app:cardCornerRadius="14dp"
+        app:cardElevation="0dp"
+        app:strokeColor="#C8EDD8"
+        app:strokeWidth="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardContactMethod">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:orientation="horizontal"
+            android:padding="14dp">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/outline_house_with_shield_24"
+                app:tint="#4CAF82" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Security Check"
+                    android:textColor="#2E7D52"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:lineSpacingMultiplier="1.4"
+                    android:text="The owner will verify your details before confirming the handoff."
+                    android:textColor="#4CAF82"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Cancel Button -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btnCancel"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="14dp"
+        app:cardElevation="0dp"
+        app:strokeColor="#DDDDDD"
+        app:strokeWidth="1.5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnSubmit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/securityCard">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Cancel"
+            android:textColor="#1A1A2E"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Submit Claim Button -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/btnSubmit"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="#4CAF82"
+        app:cardCornerRadius="14dp"
+        app:cardElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCancel"
+        app:layout_constraintTop_toBottomOf="@+id/securityCard">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/send"
+                app:tint="#FFFFFF" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Submit Claim"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

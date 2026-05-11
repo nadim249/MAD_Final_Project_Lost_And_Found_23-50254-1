@@ -198,12 +198,16 @@
             app:cardElevation="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvRecentTitle">
+            app:layout_constraintTop_toBottomOf="@+id/tvRecentTitle"
+            android:clickable="true"
+            android:focusable="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp">
+                android:padding="16dp"
+
+                >
 
                 <!-- Icon Box -->
                 <com.google.android.material.card.MaterialCardView
@@ -399,12 +403,15 @@
             app:cardElevation="3dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/card1">
+            app:layout_constraintTop_toBottomOf="@+id/card1"
+            android:clickable="true"
+            android:focusable="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp">
+                android:padding="16dp"
+               >
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/iconBox2"
