@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.nav_home -> loadFragment(HomeFragment())
                 R.id.nav_post -> loadFragment(PostFragment())
-                R.id.nav_chat -> loadFragment(ChatFragment())
+                R.id.nav_chat -> loadFragment(ChatListFragment())
                 R.id.nav_notification -> loadFragment(NotificationFragment())
             }
             true

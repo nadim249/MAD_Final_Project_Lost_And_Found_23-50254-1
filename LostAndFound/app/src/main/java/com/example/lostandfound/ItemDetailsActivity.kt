@@ -38,14 +38,8 @@ class ItemDetailsActivity : AppCompatActivity() {
         }
 
         btnContactOwner.setOnClickListener {
-            val chatFragment = ChatFragment()
-
-            supportFragmentManager.beginTransaction()
-                // R.id.main is the container defined in activity_item_details.xml
-                .replace(R.id.main, chatFragment)
-                // This allows the user to go back to the details when they press the back button
-                .addToBackStack(null)
-                .commit()
+            val intent = Intent(this, ChatActivity::class.java)
+            startActivity(intent)
         }
 
 
