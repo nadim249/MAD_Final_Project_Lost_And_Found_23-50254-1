@@ -56,7 +56,9 @@
             app:cardElevation="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/tvSubtitle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvGreeting">
+            app:layout_constraintTop_toTopOf="@+id/tvGreeting"
+            android:clickable="true"
+            android:focusable="true">
 
             <TextView
                 android:layout_width="match_parent"
