@@ -4,9 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
 
 class AdminDashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +47,25 @@ class AdminDashboardActivity : AppCompatActivity() {
         }
         findViewById<View>(R.id.cardReportsAction).setOnClickListener {
             // startActivity(Intent(this, ReportsActivity::class.java))
+        }
+
+        findViewById<View>(R.id.logoutbtn).setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("Admin Sign Out")
+                .setMessage("Are you sure you want to close the control panel and sign out?")
+                .setPositiveButton("Sign Out") { _, _ ->
+
+                    // 1. Sign out of Firebase
+                    FirebaseAuth.getInstance().signOut()
+
+                    // 2. Route back to Login screen safely
+                    val intent = Intent(this, LoginActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    finish()
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
         }
 
 

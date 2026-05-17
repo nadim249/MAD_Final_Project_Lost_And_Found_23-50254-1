@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "177840419771",
+    "firebase_url": "https://lost-and-found-f144a-default-rtdb.firebaseio.com",
+    "project_id": "lost-and-found-f144a",
+    "storage_bucket": "lost-and-found-f144a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:177840419771:android:2731ad99fd8c2afc718a9e",
+        "android_client_info": {
+          "package_name": "com.example.lostandfound"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-13oK__8m-Tay6HEgtOvVAB971_6WtWM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

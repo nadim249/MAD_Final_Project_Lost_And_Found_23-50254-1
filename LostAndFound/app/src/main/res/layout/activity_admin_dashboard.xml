@@ -129,25 +129,27 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
 
                     <!-- Total Users -->
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cardTotalUsers"
                         android:layout_width="0dp"
                         android:layout_height="150dp"
-                        android:layout_weight="1"
                         android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
                         android:clickable="true"
                         android:focusable="true"
                         app:cardBackgroundColor="#FFFFFF"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp">
+
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:padding="12dp">
+
                             <com.google.android.material.card.MaterialCardView
                                 android:id="@+id/iconUsers"
                                 android:layout_width="42dp"
@@ -157,6 +159,7 @@
                                 app:cardElevation="0dp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
+
                                 <ImageView
                                     android:layout_width="22dp"
                                     android:layout_height="22dp"
@@ -176,6 +179,7 @@
                                 android:textStyle="bold"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/iconUsers" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -185,6 +189,7 @@
                                 android:textSize="13sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/tvTotalUsers" />
+
                             <TextView
                                 android:id="@+id/tvUsersTrend"
                                 android:layout_width="wrap_content"
@@ -209,10 +214,12 @@
                         app:cardBackgroundColor="#FFFFFF"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp">
+
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:padding="12dp">
+
                             <com.google.android.material.card.MaterialCardView
                                 android:id="@+id/iconItems"
                                 android:layout_width="42dp"
@@ -222,6 +229,7 @@
                                 app:cardElevation="0dp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
+
                                 <ImageView
                                     android:layout_width="22dp"
                                     android:layout_height="22dp"
@@ -241,6 +249,7 @@
                                 android:textStyle="bold"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/iconItems" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -250,6 +259,7 @@
                                 android:textSize="13sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/tvActiveItems" />
+
                             <TextView
                                 android:id="@+id/tvItemsTrend"
                                 android:layout_width="wrap_content"
@@ -268,25 +278,27 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="20dp">
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
 
                     <!-- Resolved Items -->
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cardResolved"
                         android:layout_width="0dp"
                         android:layout_height="150dp"
-                        android:layout_weight="1"
                         android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
                         android:clickable="true"
                         android:focusable="true"
                         app:cardBackgroundColor="#FFFFFF"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp">
+
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:padding="12dp">
+
                             <com.google.android.material.card.MaterialCardView
                                 android:id="@+id/iconResolved"
                                 android:layout_width="42dp"
@@ -296,6 +308,7 @@
                                 app:cardElevation="0dp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
+
                                 <ImageView
                                     android:layout_width="22dp"
                                     android:layout_height="22dp"
@@ -315,6 +328,7 @@
                                 android:textStyle="bold"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/iconResolved" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -324,6 +338,7 @@
                                 android:textSize="13sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/tvResolved" />
+
                             <TextView
                                 android:id="@+id/tvResolvedTrend"
                                 android:layout_width="wrap_content"
@@ -348,10 +363,12 @@
                         app:cardBackgroundColor="#FFFFFF"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp">
+
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:padding="12dp">
+
                             <com.google.android.material.card.MaterialCardView
                                 android:id="@+id/iconReports"
                                 android:layout_width="42dp"
@@ -361,6 +378,7 @@
                                 app:cardElevation="0dp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
+
                                 <ImageView
                                     android:layout_width="22dp"
                                     android:layout_height="22dp"
@@ -380,6 +398,7 @@
                                 android:textStyle="bold"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/iconReports" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -389,6 +408,7 @@
                                 android:textSize="13sp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/tvPendingReports" />
+
                             <TextView
                                 android:id="@+id/tvReportsTrend"
                                 android:layout_width="wrap_content"
@@ -407,42 +427,45 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
                     android:text="Quick Actions"
                     android:textColor="#1A1A2E"
                     android:textSize="17sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="12dp" />
+                    android:textStyle="bold" />
 
                 <!-- Quick Actions Row -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="12dp">
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
 
                     <!-- Manage Users -->
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cardManageUsers"
                         android:layout_width="0dp"
                         android:layout_height="110dp"
-                        android:layout_weight="1"
                         android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
                         android:clickable="true"
                         android:focusable="true"
                         app:cardBackgroundColor="#FFFFFF"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:padding="8dp">
+
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="46dp"
                                 android:layout_height="46dp"
                                 app:cardBackgroundColor="#6B8DD6"
                                 app:cardCornerRadius="13dp"
                                 app:cardElevation="0dp">
+
                                 <ImageView
                                     android:layout_width="24dp"
                                     android:layout_height="24dp"
@@ -450,6 +473,7 @@
                                     android:src="@drawable/user"
                                     app:tint="#FFFFFF" />
                             </com.google.android.material.card.MaterialCardView>
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -473,17 +497,20 @@
                         app:cardBackgroundColor="#FFFFFF"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:padding="16dp">
+
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="46dp"
                                 android:layout_height="46dp"
                                 app:cardBackgroundColor="#26C6DA"
                                 app:cardCornerRadius="13dp"
                                 app:cardElevation="0dp">
+
                                 <ImageView
                                     android:layout_width="24dp"
                                     android:layout_height="24dp"
@@ -491,6 +518,7 @@
                                     android:src="@drawable/outline_category_24"
                                     app:tint="#FFFFFF" />
                             </com.google.android.material.card.MaterialCardView>
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -499,6 +527,7 @@
                                 android:textColor="#1A1A2E"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
+
                             <TextView
                                 android:id="@+id/tvViewItemsCount"
                                 android:layout_width="wrap_content"
@@ -515,32 +544,35 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="24dp">
+                    android:layout_marginBottom="24dp"
+                    android:orientation="horizontal">
 
                     <!-- Claim Requests -->
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/cardClaimRequests"
                         android:layout_width="0dp"
                         android:layout_height="110dp"
-                        android:layout_weight="1"
                         android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
                         android:clickable="true"
                         android:focusable="true"
                         app:cardBackgroundColor="#FFFFFF"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:padding="16dp">
+
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="46dp"
                                 android:layout_height="46dp"
                                 app:cardBackgroundColor="#4CAF82"
                                 app:cardCornerRadius="13dp"
                                 app:cardElevation="0dp">
+
                                 <ImageView
                                     android:layout_width="24dp"
                                     android:layout_height="24dp"
@@ -548,6 +580,7 @@
                                     android:src="@drawable/outline_category_24"
                                     app:tint="#FFFFFF" />
                             </com.google.android.material.card.MaterialCardView>
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -556,6 +589,7 @@
                                 android:textColor="#1A1A2E"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
+
                             <TextView
                                 android:id="@+id/tvClaimCount"
                                 android:layout_width="wrap_content"
@@ -578,17 +612,20 @@
                         app:cardBackgroundColor="#FFFFFF"
                         app:cardCornerRadius="20dp"
                         app:cardElevation="0dp">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:padding="16dp">
+
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="46dp"
                                 android:layout_height="46dp"
                                 app:cardBackgroundColor="#FF9800"
                                 app:cardCornerRadius="13dp"
                                 app:cardElevation="0dp">
+
                                 <ImageView
                                     android:layout_width="24dp"
                                     android:layout_height="24dp"
@@ -596,6 +633,7 @@
                                     android:src="@drawable/user"
                                     app:tint="#FFFFFF" />
                             </com.google.android.material.card.MaterialCardView>
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -608,6 +646,12 @@
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
+
+                <Button
+                    android:id="@+id/logoutbtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Button" />
 
             </LinearLayout>
         </LinearLayout>

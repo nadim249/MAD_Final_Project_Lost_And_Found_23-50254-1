@@ -1,5 +1,6 @@
 package com.example.lostandfound
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -69,14 +71,25 @@ class ProfileActivity : AppCompatActivity() {
 
 
         // Sign Out
+// Make sure to import this at the top:
+// import com.google.firebase.auth.FirebaseAuth
+
         cardSignOut.setOnClickListener {
             AlertDialog.Builder(this)
                 .setTitle("Sign Out")
                 .setMessage("Are you sure you want to sign out?")
                 .setPositiveButton("Sign Out") { _, _ ->
-                    // Clear session and go to login
-                    // startActivity(Intent(this, LoginActivity::class.java))
-                    // finishAffinity()
+
+                    // 1. Sign out of Firebase
+                    FirebaseAuth.getInstance().signOut()
+
+                    // 2. Route back to Login screen
+                    val intent = Intent(this, LoginActivity::class.java)
+
+                    // 3. CLEAR the backstack so they can't press "Back" to re-enter
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    finish()
                 }
                 .setNegativeButton("Cancel", null)
                 .show()
