@@ -26,7 +26,10 @@ class LoginActivity : AppCompatActivity() {
         // Navigation to Dashboard
         btnSignIn.setOnClickListener {
             // TODO: Navigate to your Dashboard Activity once created
-            startActivity(Intent(this, MainActivity::class.java))
+            //startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, AdminDashboardActivity::class.java))
+
+
             finish()
         }
 

@@ -28,9 +28,15 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-        val foundCard = view.findViewById<View>(R.id.card2)
+        val foundCard1 = view.findViewById<View>(R.id.card2)
+        val foundCard2 = view.findViewById<View>(R.id.card1)
 
-        foundCard.setOnClickListener {
+        foundCard1.setOnClickListener {
+            // Example: Change color or navigate
+            val intent = Intent(requireContext(), ItemDetailsActivity::class.java)
+            startActivity(intent)
+        }
+        foundCard2.setOnClickListener {
             // Example: Change color or navigate
             val intent = Intent(requireContext(), ItemDetailsActivity::class.java)
             startActivity(intent)

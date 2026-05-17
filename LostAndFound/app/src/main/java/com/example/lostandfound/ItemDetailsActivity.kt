@@ -42,6 +42,12 @@ class ItemDetailsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        btnClaimItem.setOnClickListener {
+            ClaimItemDialog.newInstance()
+                .show(supportFragmentManager, ClaimItemDialog.TAG)
+        }
+
+
 
     }
 }
