@@ -1,5 +1,6 @@
 package com.example.lostandfound
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -35,16 +36,12 @@ class UserListActivity : AppCompatActivity() {
         rvUsers = findViewById(R.id.rvUsers)
 
         rvUsers.layoutManager = LinearLayoutManager(this)
-        rvUsers.adapter = UserListAdapter(users)
+        rvUsers.adapter = UserListAdapter(users) { user ->
+            val intent = Intent(this, UserDetailsActivity::class.java)
+            intent.putExtra("USER_DATA", user)
+            startActivity(intent)
+        }
 
         ivBack.setOnClickListener { finish() }
     }
 }
-
-data class UserModel(
-    val name: String,
-    val email: String,
-    val initials: String,
-    val stats: String,
-    val status: String
-)

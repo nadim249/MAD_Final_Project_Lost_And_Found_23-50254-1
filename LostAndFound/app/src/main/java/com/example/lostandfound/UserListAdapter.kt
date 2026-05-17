@@ -8,10 +8,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 
-class UserListAdapter(private val users: List<UserModel>) :
-    RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
+class UserListAdapter(
+    private val users: List<UserModel>,
+    private val onItemClick: (UserModel) -> Unit
+) : RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val root: MaterialCardView = view as MaterialCardView
         val tvInitials: TextView   = view.findViewById(R.id.tvInitials)
         val tvName: TextView       = view.findViewById(R.id.tvUserName)
         val tvEmail: TextView      = view.findViewById(R.id.tvUserEmail)
@@ -30,6 +33,8 @@ class UserListAdapter(private val users: List<UserModel>) :
         holder.tvEmail.text    = user.email
         holder.tvStats.text    = user.stats
         holder.tvStatus.text   = user.status
+
+        holder.root.setOnClickListener { onItemClick(user) }
 
         if (user.status == "Suspended") {
             holder.tvStatus.setTextColor(Color.parseColor("#E57373"))

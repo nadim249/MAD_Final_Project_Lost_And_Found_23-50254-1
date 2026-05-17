@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LostAndFound">
         <activity
+            android:name=".UserDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ClaimRequestsActivity"
             android:exported="false" />
         <activity
