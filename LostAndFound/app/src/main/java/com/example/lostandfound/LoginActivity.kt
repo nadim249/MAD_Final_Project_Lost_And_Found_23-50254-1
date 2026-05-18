@@ -93,6 +93,14 @@ class LoginActivity : AppCompatActivity() {
             database.get().addOnSuccessListener { snapshot ->
                 try {
                     if (snapshot.exists()) {
+                        val status = snapshot.child("status").value?.toString() ?: "Active"
+
+                        if (status != "Active") {
+                            auth.signOut()
+                            Toast.makeText(this, "Your account is $status. Please contact admin.", Toast.LENGTH_LONG).show()
+                            return@addOnSuccessListener
+                        }
+
                         val role = snapshot.child("role").value?.toString() ?: "User"
 
                         if (role == "Admin") {
