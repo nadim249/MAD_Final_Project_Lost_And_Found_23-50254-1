@@ -142,7 +142,14 @@ class AdminDashboardActivity : AppCompatActivity() {
         // Fetch Reports Count
         database.getReference("reports").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                tvPendingReports.text = snapshot.childrenCount.toString()
+                var pendingCount = 0
+                for (reportSnap in snapshot.children) {
+                    val status = reportSnap.child("status").getValue(String::class.java)
+                    if (status == "Pending") {
+                        pendingCount++
+                    }
+                }
+                tvPendingReports.text = pendingCount.toString()
             }
             override fun onCancelled(error: DatabaseError) {
                 tvPendingReports.text = "0"
