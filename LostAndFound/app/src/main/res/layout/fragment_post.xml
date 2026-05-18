@@ -278,9 +278,8 @@
                                 android:id="@+id/ivPhoto1"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:scaleType="centerCrop"
-                                android:src="@drawable/bell"
-                                app:tint="#5C6BC0" />
+                                android:scaleType="centerCrop" />
+
                         </com.google.android.material.card.MaterialCardView>
 
                         <!-- Remove Button -->
@@ -672,12 +671,14 @@
 
         </LinearLayout>
 
-        <!-- ===== POST ITEM BUTTON (sticky bottom) ===== -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnPostCard"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="24dp"
+            android:clickable="true"
+            android:focusable="true"
             app:cardBackgroundColor="#6B8DD6"
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp">

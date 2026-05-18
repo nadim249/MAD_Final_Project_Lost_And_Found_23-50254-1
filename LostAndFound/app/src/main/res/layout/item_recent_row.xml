@@ -18,24 +18,6 @@
         android:padding="16dp">
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/iconBox"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            app:cardBackgroundColor="#EEF2FF"
-            app:cardCornerRadius="14dp"
-            app:cardElevation="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <ImageView
-                android:id="@+id/ivItemIcon"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_gravity="center"
-                android:src="@drawable/bell"
-                app:tint="#6B8DD6" />
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
             android:id="@+id/badgeStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -60,14 +42,13 @@
             android:id="@+id/tvItemTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
             android:layout_marginEnd="8dp"
             android:text="Item Title"
             android:textColor="#1A1A2E"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/badgeStatus"
-            app:layout_constraintStart_toEndOf="@+id/iconBox"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

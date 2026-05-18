@@ -3,6 +3,7 @@ package com.example.lostandfound
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -12,6 +13,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bumptech.glide.Glide
 import com.google.android.material.card.MaterialCardView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -88,7 +90,7 @@ class ItemDetailsActivity : AppCompatActivity() {
             val btnContactOwner = findViewById<View>(R.id.btnContactOwner)
             val btnClaimItem = findViewById<MaterialCardView>(R.id.btnClaimItem)
 
-            // 2. Populate Core Item Data
+            // Populate Core Item Data
             tvItemTitle.text = item.title
             tvDescription.text = item.description
             tvLocation.text = item.location
@@ -98,34 +100,50 @@ class ItemDetailsActivity : AppCompatActivity() {
             tvSize.text = if (item.size.isNotEmpty()) item.size else "N/A"
             tvItemStatus.text = item.status
 
-            // Tags (Repurposing layout tags to show item characteristics)
+            // Tags
             tvTag1.text = item.type
             tvTag2.text = if (item.brand.isNotEmpty()) item.brand else "General"
 
-            // 3. Dynamic Styling & Image Loading
+            // Dynamic Styling
             if (item.type == "Lost") {
-                badgeStatus.setCardBackgroundColor(Color.parseColor("#E57373")) // Red
+                badgeStatus.setCardBackgroundColor(Color.parseColor("#E57373"))
                 tvStatus.text = "Lost Item"
             } else {
-                badgeStatus.setCardBackgroundColor(Color.parseColor("#4CAF82")) // Green
+                badgeStatus.setCardBackgroundColor(Color.parseColor("#4CAF82"))
                 tvStatus.text = "Found Item"
             }
 
-            val resourceId = resources.getIdentifier(item.imagePath, "drawable", packageName)
-            if (resourceId != 0) {
-                ivItemImage.setImageResource(resourceId)
+            // --- DYNAMIC BASE64 IMAGE LOADING ---
+            if (item.imagePath.length > 50) {
+                try {
+                    val imageByteArray = Base64.decode(item.imagePath, Base64.DEFAULT)
+                    Glide.with(this)
+                        .asBitmap()
+                        .load(imageByteArray)
+                        .centerCrop()
+                        .placeholder(R.drawable.bell)
+                        .into(ivItemImage)
+                } catch (e: Exception) {
+                    Log.e("ItemDetailsActivity", "Error decoding Base64 image", e)
+                    ivItemImage.setImageResource(R.drawable.bell)
+                }
             } else {
-                ivItemImage.setImageResource(R.drawable.bell) // Fallback
+                val resourceId = resources.getIdentifier(item.imagePath, "drawable", packageName)
+                if (resourceId != 0) {
+                    ivItemImage.setImageResource(resourceId)
+                } else {
+                    ivItemImage.setImageResource(R.drawable.bell)
+                }
             }
 
-            // 4. Hide Action Buttons if the user owns this post
+            // Hide Action Buttons if user owns this post
             val currentUserId = auth.currentUser?.uid
             if (currentUserId == item.postedBy) {
                 btnContactOwner.visibility = View.GONE
                 btnClaimItem.visibility = View.GONE
             }
 
-            // 5. Fetch Poster Details from Firebase
+            // Fetch Poster Details from Firebase
             if (item.postedBy.isNotEmpty()) {
                 database.getReference("users").child(item.postedBy)
                     .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -140,13 +158,11 @@ class ItemDetailsActivity : AppCompatActivity() {
                                 Log.e("ItemDetails", "Error parsing poster data", e)
                             }
                         }
-                        override fun onCancelled(error: DatabaseError) {
-                            Log.e("ItemDetails", "Database error: ${error.message}")
-                        }
+                        override fun onCancelled(error: DatabaseError) {}
                     })
             }
 
-            // 6. Button Listeners
+            // Button Listeners
             btnBack.setOnClickListener { finish() }
 
             btnShare.setOnClickListener {
@@ -163,7 +179,6 @@ class ItemDetailsActivity : AppCompatActivity() {
 
             btnContactOwner.setOnClickListener {
                 val intent = Intent(this, ChatActivity::class.java)
-                // Pass poster's name to chat
                 intent.putExtra("name", tvPosterName.text.toString())
                 startActivity(intent)
             }
