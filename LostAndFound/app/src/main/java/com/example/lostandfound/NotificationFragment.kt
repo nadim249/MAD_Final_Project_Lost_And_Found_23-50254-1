@@ -22,6 +22,7 @@ class NotificationFragment : Fragment() {
 
     private lateinit var lvNotifications: ListView
     private lateinit var tvPlaceholder: TextView
+    private lateinit var btnClearAll: TextView
     private val notificationList = mutableListOf<NotificationModel>()
     private lateinit var adapter: NotificationListAdapter
 
@@ -37,6 +38,7 @@ class NotificationFragment : Fragment() {
 
         lvNotifications = view.findViewById(R.id.lvNotifications)
         tvPlaceholder = view.findViewById(R.id.tvNoNotificationsPlaceholder)
+        btnClearAll = view.findViewById(R.id.btnClearAll)
 
         adapter = NotificationListAdapter(requireContext(), notificationList)
         lvNotifications.adapter = adapter
@@ -49,7 +51,33 @@ class NotificationFragment : Fragment() {
             startActivity(intent)
         }
 
+        btnClearAll.setOnClickListener {
+            clearAllNotifications()
+        }
+
         listenForNewPostNotifications()
+    }
+
+    private fun clearAllNotifications() {
+        val currentUserId = auth.currentUser?.uid ?: return
+        database.getReference("notifications").child(currentUserId).removeValue()
+            .addOnSuccessListener {
+                Toast.makeText(requireContext(), "All notifications cleared", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(requireContext(), "Failed to clear notifications", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun deleteNotification(notificationId: String) {
+        val currentUserId = auth.currentUser?.uid ?: return
+        database.getReference("notifications").child(currentUserId).child(notificationId).removeValue()
+            .addOnSuccessListener {
+                Toast.makeText(requireContext(), "Notification deleted", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(requireContext(), "Failed to delete notification", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun listenForNewPostNotifications() {
@@ -86,9 +114,11 @@ class NotificationFragment : Fragment() {
                         if (notificationList.isEmpty()) {
                             tvPlaceholder.visibility = View.VISIBLE
                             lvNotifications.visibility = View.GONE
+                            btnClearAll.visibility = View.GONE
                         } else {
                             tvPlaceholder.visibility = View.GONE
                             lvNotifications.visibility = View.VISIBLE
+                            btnClearAll.visibility = View.VISIBLE
                         }
 
                     } catch (e: Exception) {
@@ -116,9 +146,14 @@ class NotificationFragment : Fragment() {
             val tvEmoji = rowView.findViewById<TextView>(R.id.tvNotificationEmoji)
             val tvTitle = rowView.findViewById<TextView>(R.id.tvNotificationRowTitle)
             val tvBody = rowView.findViewById<TextView>(R.id.tvNotificationRowBody)
+            val btnDelete = rowView.findViewById<View>(R.id.btnDeleteNotification)
 
             tvTitle.text = notificationItem.title
             tvBody.text = notificationItem.body
+
+            btnDelete.setOnClickListener {
+                deleteNotification(notificationItem.notificationId)
+            }
 
             if (notificationItem.title.contains("Found", ignoreCase = true)) {
                 cardBadge.setCardBackgroundColor(Color.parseColor("#E8F5E9"))
