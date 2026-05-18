@@ -63,6 +63,7 @@ class HomeFragment : Fragment() {
         rvRecentItems.adapter = adapter
 
         // Fetch User Greeting
+
         try {
             val uid = FirebaseAuth.getInstance().currentUser?.uid
             if (uid != null) {
@@ -89,20 +90,17 @@ class HomeFragment : Fragment() {
             Log.e("HomeFragment", "Error fetching user", e)
         }
 
-        // Fetch Items from Firebase
         fetchItems()
 
-        // Navigation
+
         avatarCard.setOnClickListener {
             startActivity(Intent(requireContext(), ProfileActivity::class.java))
         }
 
-        // Pill Filters
         filterAll.setOnClickListener { applyFilter("All") }
         filterLost.setOnClickListener { applyFilter("Lost") }
         filterFound.setOnClickListener { applyFilter("Found") }
 
-        // Real-Time Search Bar Listener
         etSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -138,7 +136,6 @@ class HomeFragment : Fragment() {
                                 }
                             }
 
-                            // Trigger UI update using current filters and search
                             updateDisplayedItems()
 
                         } catch (e: Exception) {
@@ -160,7 +157,6 @@ class HomeFragment : Fragment() {
     private fun applyFilter(filterType: String) {
         currentFilter = filterType
 
-        // Reset all pill styles
         filterAll.setBackgroundResource(R.drawable.pill_inactive_bg)
         filterLost.setBackgroundResource(R.drawable.pill_inactive_bg)
         filterFound.setBackgroundResource(R.drawable.pill_inactive_bg)
@@ -185,22 +181,19 @@ class HomeFragment : Fragment() {
             }
         }
 
-        // Trigger list update
         updateDisplayedItems()
     }
 
-    // NEW: Master Function that applies BOTH Filter and Search
+    // BOTH Filter and Search
     private fun updateDisplayedItems() {
         filteredItems.clear()
 
-        // 1. Apply Status Filter (All/Lost/Found)
         val statusFilteredList = if (currentFilter == "All") {
             allItems
         } else {
             allItems.filter { it.type == currentFilter }
         }
 
-        // 2. Apply Search Query (Checks Title, Description, AND Location)
         if (currentSearchQuery.isEmpty()) {
             filteredItems.addAll(statusFilteredList)
         } else {

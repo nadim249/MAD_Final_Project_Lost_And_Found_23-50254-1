@@ -122,7 +122,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- ===== SECTION HEADER: Recent Items + Filters ===== -->
+        <!-- Items + Filters ===== -->
         <TextView
             android:id="@+id/tvRecentTitle"
             android:layout_width="wrap_content"
