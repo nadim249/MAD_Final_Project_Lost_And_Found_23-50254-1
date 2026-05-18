@@ -12,6 +12,7 @@ data class ItemModel(
     val postedBy: String = "",
     val postedByEmail: String = "",
     val status: String = "Active",
+    val submittedToOffice: Boolean = false,
     val imagePath: String = "bell",
     val color: String = "",
     val brand: String = "",

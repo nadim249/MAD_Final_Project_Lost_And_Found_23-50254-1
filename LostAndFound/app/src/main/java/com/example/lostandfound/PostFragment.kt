@@ -38,6 +38,7 @@ class PostFragment : Fragment() {
     private var selectedCategory = "Electronics"
     private var selectedDateString = ""
     private var selectedImageUri: Uri? = null
+    private var isSubmittedToOffice = false
 
     private lateinit var cardLost: MaterialCardView
     private lateinit var cardFound: MaterialCardView
@@ -52,6 +53,8 @@ class PostFragment : Fragment() {
     private lateinit var ivPhoto1: ImageView
     private lateinit var btnPostCard: MaterialCardView
     private lateinit var btnPostItem: TextView
+    private lateinit var cardOfficeSubmission: MaterialCardView
+    private lateinit var switchSubmitToOffice: com.google.android.material.switchmaterial.SwitchMaterial
 
     private lateinit var tagElectronics: MaterialCardView
     private lateinit var tagClothing: MaterialCardView
@@ -107,6 +110,8 @@ class PostFragment : Fragment() {
         ivPhoto1 = view.findViewById(R.id.ivPhoto1)
         btnPostItem = view.findViewById(R.id.btnPostItem)
         btnPostCard = view.findViewById(R.id.btnPostCard)
+        cardOfficeSubmission = view.findViewById(R.id.cardOfficeSubmission)
+        switchSubmitToOffice = view.findViewById(R.id.switchSubmitToOffice)
 
         // Tags
         tagElectronics = view.findViewById(R.id.tagElectronics)
@@ -130,6 +135,11 @@ class PostFragment : Fragment() {
             cardLost.setStrokeWidth(4)
             cardFound.setStrokeColor(Color.parseColor("#E0E0E0"))
             cardFound.setStrokeWidth(3)
+
+            // Hide office submission toggle for lost items
+            cardOfficeSubmission.visibility = View.GONE
+            isSubmittedToOffice = false
+            switchSubmitToOffice.isChecked = false
         }
 
         cardFound.setOnClickListener {
@@ -138,6 +148,9 @@ class PostFragment : Fragment() {
             cardFound.setStrokeWidth(4)
             cardLost.setStrokeColor(Color.parseColor("#E0E0E0"))
             cardLost.setStrokeWidth(3)
+
+            // Show office submission toggle for found items
+            cardOfficeSubmission.visibility = View.VISIBLE
         }
 
         // Calendar Date Picker
@@ -180,6 +193,10 @@ class PostFragment : Fragment() {
         // Form Submit Execution
         btnPostCard.setOnClickListener {
             executeFormSubmission()
+        }
+
+        switchSubmitToOffice.setOnCheckedChangeListener { _, isChecked ->
+            isSubmittedToOffice = isChecked
         }
     }
 
@@ -277,6 +294,7 @@ class PostFragment : Fragment() {
             "postedBy" to uid,
             "postedByEmail" to email,
             "status" to "Active",
+            "submittedToOffice" to isSubmittedToOffice,
             "imagePath" to imageString,
             "color" to "Not specified",
             "brand" to selectedCategory,
@@ -303,6 +321,8 @@ class PostFragment : Fragment() {
                     tvDate.setTextColor(Color.parseColor("#AAAAAA"))
                     selectedDateString = ""
                     selectedImageUri = null
+                    isSubmittedToOffice = false
+                    switchSubmitToOffice.isChecked = false
                     photoThumb1.visibility = View.GONE
                     cardAddPhoto.visibility = View.VISIBLE
                     ivPhoto1.setImageDrawable(null)

@@ -8,9 +8,23 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class AdminDashboardActivity : AppCompatActivity() {
+
+    private lateinit var database: FirebaseDatabase
+    private lateinit var tvTotalUsers: TextView
+    private lateinit var tvActiveItems: TextView
+    private lateinit var tvResolved: TextView
+    private lateinit var tvPendingReports: TextView
+    private lateinit var tvViewItemsCount: TextView
+    private lateinit var tvClaimCount: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -20,6 +34,19 @@ class AdminDashboardActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        database = FirebaseDatabase.getInstance()
+
+        // Initialize TextViews
+        tvTotalUsers = findViewById(R.id.tvTotalUsers)
+        tvActiveItems = findViewById(R.id.tvActiveItems)
+        tvResolved = findViewById(R.id.tvResolved)
+        tvPendingReports = findViewById(R.id.tvPendingReports)
+        tvViewItemsCount = findViewById(R.id.tvViewItemsCount)
+        tvClaimCount = findViewById(R.id.tvClaimCount)
+
+        // Fetch Data
+        fetchStats()
 
         // Stats cards
         findViewById<View>(R.id.cardTotalUsers).setOnClickListener {
@@ -32,7 +59,7 @@ class AdminDashboardActivity : AppCompatActivity() {
            startActivity(Intent(this, ItemsListActivity::class.java))
         }
         findViewById<View>(R.id.cardPendingReports).setOnClickListener {
-            // startActivity(Intent(this, ReportsActivity::class.java))
+            startActivity(Intent(this, ReportsActivity::class.java))
         }
 
         // Quick action cards
@@ -46,7 +73,7 @@ class AdminDashboardActivity : AppCompatActivity() {
             startActivity(Intent(this, ClaimRequestsActivity::class.java))
         }
         findViewById<View>(R.id.cardReportsAction).setOnClickListener {
-            // startActivity(Intent(this, ReportsActivity::class.java))
+            startActivity(Intent(this, ReportsActivity::class.java))
         }
 
         findViewById<View>(R.id.logoutbtn).setOnClickListener {
@@ -65,7 +92,61 @@ class AdminDashboardActivity : AppCompatActivity() {
                 .setNegativeButton("Cancel", null)
                 .show()
         }
+    }
 
+    private fun fetchStats() {
+        // Fetch Users Count
+        database.getReference("users").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val count = snapshot.childrenCount
+                tvTotalUsers.text = count.toString()
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
 
+        // Fetch Items Stats
+        database.getReference("items").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var activeCount = 0
+                var resolvedCount = 0
+                for (itemSnap in snapshot.children) {
+                    val status = itemSnap.child("status").getValue(String::class.java)
+                    if (status == "Active") {
+                        activeCount++
+                    } else if (status == "Resolved" || status == "Found") { // Checking for common resolved statuses
+                        resolvedCount++
+                    }
+                }
+                tvActiveItems.text = activeCount.toString()
+                tvViewItemsCount.text = activeCount.toString()
+                tvResolved.text = resolvedCount.toString()
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+
+        // Fetch Claims Count
+        database.getReference("claims").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var pendingClaims = 0
+                for (claimSnap in snapshot.children) {
+                    val status = claimSnap.child("status").getValue(String::class.java)
+                    if (status == "Pending") {
+                        pendingClaims++
+                    }
+                }
+                tvClaimCount.text = pendingClaims.toString()
+            }
+            override fun onCancelled(error: DatabaseError) {}
+        })
+
+        // Fetch Reports Count
+        database.getReference("reports").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                tvPendingReports.text = snapshot.childrenCount.toString()
+            }
+            override fun onCancelled(error: DatabaseError) {
+                tvPendingReports.text = "0"
+            }
+        })
     }
 }

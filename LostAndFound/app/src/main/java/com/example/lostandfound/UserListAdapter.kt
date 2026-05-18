@@ -31,7 +31,7 @@ class UserListAdapter(
         holder.tvInitials.text = user.initials
         holder.tvName.text     = user.name
         holder.tvEmail.text    = user.email
-        holder.tvStats.text    = user.stats
+        holder.tvStats.text    = user.stats.toString()
         holder.tvStatus.text   = user.status
 
         holder.root.setOnClickListener { onItemClick(user) }

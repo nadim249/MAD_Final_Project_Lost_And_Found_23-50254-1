@@ -16,6 +16,12 @@
             android:name=".UserDetailsActivity"
             android:exported="false" />
         <activity
+            android:name=".AdminItemDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReportsActivity"
+            android:exported="false" />
+        <activity
             android:name=".ClaimRequestsActivity"
             android:exported="false" />
         <activity

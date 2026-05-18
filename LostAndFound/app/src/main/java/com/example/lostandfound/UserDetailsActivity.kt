@@ -14,14 +14,20 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.textfield.TextInputEditText
 
+import com.google.firebase.database.FirebaseDatabase
+
 class UserDetailsActivity : AppCompatActivity() {
 
     private lateinit var user: UserModel
+    private lateinit var database: FirebaseDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_user_details)
+        
+        database = FirebaseDatabase.getInstance()
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -63,8 +69,8 @@ class UserDetailsActivity : AppCompatActivity() {
         ivBack.setOnClickListener { finish() }
 
         btnUpdate.setOnClickListener {
-            val updatedName = etName.text.toString()
-            val updatedEmail = etEmail.text.toString()
+            val updatedName = etName.text.toString().trim()
+            val updatedEmail = etEmail.text.toString().trim()
             val updatedStatus = spinnerStatus.text.toString()
 
             if (updatedName.isEmpty() || updatedEmail.isEmpty()) {
@@ -72,9 +78,21 @@ class UserDetailsActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // TODO: Implement actual update logic (API call)
-            Toast.makeText(this, "User $updatedName updated successfully!", Toast.LENGTH_SHORT).show()
-            finish()
+            val updates = mapOf(
+                "name" to updatedName,
+                "email" to updatedEmail,
+                "status" to updatedStatus,
+                "initials" to updatedName.split(' ').mapNotNull { it.firstOrNull()?.toString() }.joinToString("").take(2).uppercase()
+            )
+
+            database.getReference("users").child(user.uid).updateChildren(updates)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "User updated successfully!", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Failed to update user: ${it.message}", Toast.LENGTH_SHORT).show()
+                }
         }
 
         btnDelete.setOnClickListener {
@@ -82,8 +100,14 @@ class UserDetailsActivity : AppCompatActivity() {
                 .setTitle("Delete User")
                 .setMessage("Are you sure you want to delete ${user.name}?")
                 .setPositiveButton("Delete") { _, _ ->
-                    Toast.makeText(this, "User deleted", Toast.LENGTH_SHORT).show()
-                    finish()
+                    database.getReference("users").child(user.uid).removeValue()
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "User deleted", Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(this, "Failed to delete user: ${it.message}", Toast.LENGTH_SHORT).show()
+                        }
                 }
                 .setNegativeButton("Cancel", null)
                 .show()

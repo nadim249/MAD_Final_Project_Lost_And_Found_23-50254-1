@@ -47,9 +47,21 @@
             android:textColor="#1A1A2E"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/badgeStatus"
+            app:layout_constraintEnd_toStartOf="@+id/ivDelete"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivDelete"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/delete"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/badgeStatus"
+            app:layout_constraintEnd_toStartOf="@+id/badgeStatus"
+            app:layout_constraintTop_toTopOf="@+id/badgeStatus"
+            app:tint="#E57373" />
 
         <TextView
             android:id="@+id/tvItemDesc"

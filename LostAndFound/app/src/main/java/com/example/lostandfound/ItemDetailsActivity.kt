@@ -118,6 +118,8 @@ class ItemDetailsActivity : AppCompatActivity() {
             val btnContactOwner = findViewById<View>(R.id.btnContactOwner)
             val btnClaimItem = findViewById<MaterialCardView>(R.id.btnClaimItem)
             val btnResolve = findViewById<MaterialCardView>(R.id.btnResolve)
+            val cardOfficeStatus = findViewById<MaterialCardView>(R.id.cardOfficeStatus)
+            val switchOfficeUpdate = findViewById<com.google.android.material.switchmaterial.SwitchMaterial>(R.id.switchOfficeUpdate)
 
             tvItemTitle.text = item.title
             tvDescription.text = item.description
@@ -132,6 +134,12 @@ class ItemDetailsActivity : AppCompatActivity() {
                 tvItemStatus.setTextColor(Color.GRAY)
                 btnClaimItem.visibility = View.GONE
                 btnContactOwner.visibility = View.GONE
+            }
+
+            if (item.submittedToOffice) {
+                btnClaimItem.visibility = View.VISIBLE
+            } else {
+                btnClaimItem.visibility = View.GONE
             }
 
             tvPosterName.text = "Loading..."
@@ -178,15 +186,26 @@ class ItemDetailsActivity : AppCompatActivity() {
                 btnClaimItem.visibility = View.GONE
                 btnReport.visibility = View.GONE
                 btnDelete.visibility = View.VISIBLE
-                if (item.status != "Resolved") {
+                if (item.status != "Resolved" && item.type == "Found") {
                     btnResolve.visibility = View.VISIBLE
+                    cardOfficeStatus.visibility = View.VISIBLE
+                    switchOfficeUpdate.isChecked = item.submittedToOffice
+                } else if (item.status != "Resolved" && item.type == "Lost") {
+                    btnResolve.visibility = View.VISIBLE
+                    cardOfficeStatus.visibility = View.GONE
                 } else {
                     btnResolve.visibility = View.GONE
+                    cardOfficeStatus.visibility = View.GONE
                 }
             } else {
                 btnResolve.visibility = View.GONE
                 btnReport.visibility = View.VISIBLE
                 btnDelete.visibility = View.GONE
+                cardOfficeStatus.visibility = View.GONE
+            }
+
+            switchOfficeUpdate.setOnCheckedChangeListener { _, isChecked ->
+                updateOfficeStatus(isChecked)
             }
 
             btnDelete.setOnClickListener {
@@ -265,12 +284,53 @@ class ItemDetailsActivity : AppCompatActivity() {
             }
 
             btnReport.setOnClickListener {
-                Toast.makeText(this, "Item reported to Admin.", Toast.LENGTH_SHORT).show()
+                showReportDialog()
             }
-
         } catch (e: Exception) {
             Log.e("ItemDetailsActivity", "Error binding views", e)
             Toast.makeText(this, "Error loading UI elements", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun showReportDialog() {
+        val reasons = arrayOf("Spam", "Inappropriate Content", "Misleading Information", "Other")
+        var selectedReason = reasons[0]
+
+        AlertDialog.Builder(this)
+            .setTitle("Report Item")
+            .setSingleChoiceItems(reasons, 0) { _, which ->
+                selectedReason = reasons[which]
+            }
+            .setPositiveButton("Report") { _, _ ->
+                submitReport(selectedReason)
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun submitReport(reason: String) {
+        val currentUserId = auth.currentUser?.uid ?: return
+        val currentUserEmail = auth.currentUser?.email ?: "Unknown"
+        val reportsRef = database.getReference("reports")
+        val reportId = reportsRef.push().key ?: return
+
+        val report = ReportModel(
+            id = reportId,
+            itemId = item.id,
+            itemTitle = item.title,
+            reportedBy = currentUserId,
+            reportedByEmail = currentUserEmail,
+            reason = reason,
+            timestamp = System.currentTimeMillis(),
+            status = "Pending"
+        )
+
+        reportsRef.child(reportId).setValue(report).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(this, "Item reported to Admin.", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Failed to submit report.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -319,5 +379,17 @@ class ItemDetailsActivity : AppCompatActivity() {
                 Toast.makeText(this, "Failed to delete post: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun updateOfficeStatus(isSubmitted: Boolean) {
+        val itemRef = database.getReference("items").child(item.id)
+        itemRef.child("submittedToOffice").setValue(isSubmitted)
+            .addOnSuccessListener {
+                item = item.copy(submittedToOffice = isSubmitted)
+                Toast.makeText(this, "Office status updated", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Update failed: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 }
