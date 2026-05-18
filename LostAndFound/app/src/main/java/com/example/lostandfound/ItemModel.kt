@@ -6,7 +6,7 @@ data class ItemModel(
     var id: String = "",
     val title: String = "",
     val description: String = "",
-    val type: String = "", // "Lost" or "Found"
+    val type: String = "",
     val location: String = "",
     val date: String = "",
     val postedBy: String = "",

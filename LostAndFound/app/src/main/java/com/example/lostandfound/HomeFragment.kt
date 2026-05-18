@@ -24,15 +24,12 @@ class HomeFragment : Fragment() {
     private lateinit var rvRecentItems: RecyclerView
     private lateinit var adapter: RecentItemsAdapter
 
-    // Data lists
     private var allItems = mutableListOf<ItemModel>()
     private var filteredItems = mutableListOf<ItemModel>()
 
-    // State trackers
     private var currentFilter = "All"
     private var currentSearchQuery = ""
 
-    // UI Elements
     private lateinit var filterAll: TextView
     private lateinit var filterLost: TextView
     private lateinit var filterFound: TextView

@@ -88,11 +88,11 @@ class ItemDetailsActivity : AppCompatActivity() {
             val tvItemStatus = findViewById<TextView>(R.id.tvItemStatus)
 
             val btnReport = findViewById<View>(R.id.btnReport)
+            val btnDelete = findViewById<View>(R.id.btnDelete)
             val btnContactOwner = findViewById<View>(R.id.btnContactOwner)
             val btnClaimItem = findViewById<MaterialCardView>(R.id.btnClaimItem)
             val btnResolve = findViewById<MaterialCardView>(R.id.btnResolve)
 
-            // Populate Core Item Data
             tvItemTitle.text = item.title
             tvDescription.text = item.description
             tvLocation.text = item.location
@@ -108,16 +108,13 @@ class ItemDetailsActivity : AppCompatActivity() {
                 btnContactOwner.visibility = View.GONE
             }
 
-            // Initialize Poster Data with item fields (fallback/quick load)
             tvPosterName.text = "Loading..."
             tvPosterInitials.text = "??"
             tvPosterDept.text = item.postedByEmail
 
-            // Tags
             tvTag1.text = item.type
             tvTag2.text = if (item.brand.isNotEmpty()) item.brand else "General"
 
-            // Dynamic Styling
             if (item.type == "Lost") {
                 badgeStatus.setCardBackgroundColor(Color.parseColor("#E57373"))
                 tvStatus.text = "Lost Item"
@@ -126,7 +123,6 @@ class ItemDetailsActivity : AppCompatActivity() {
                 tvStatus.text = "Found Item"
             }
 
-            // --- DYNAMIC BASE64 IMAGE LOADING ---
             if (item.imagePath.length > 50) {
                 try {
                     val imageByteArray = Base64.decode(item.imagePath, Base64.DEFAULT)
@@ -154,6 +150,8 @@ class ItemDetailsActivity : AppCompatActivity() {
             if (currentUserId == item.postedBy) {
                 btnContactOwner.visibility = View.GONE
                 btnClaimItem.visibility = View.GONE
+                btnReport.visibility = View.GONE
+                btnDelete.visibility = View.VISIBLE
                 if (item.status != "Resolved") {
                     btnResolve.visibility = View.VISIBLE
                 } else {
@@ -161,6 +159,19 @@ class ItemDetailsActivity : AppCompatActivity() {
                 }
             } else {
                 btnResolve.visibility = View.GONE
+                btnReport.visibility = View.VISIBLE
+                btnDelete.visibility = View.GONE
+            }
+
+            btnDelete.setOnClickListener {
+                AlertDialog.Builder(this)
+                    .setTitle("Delete Post")
+                    .setMessage("Are you sure you want to delete this post? This action cannot be undone.")
+                    .setPositiveButton("Delete") { _, _ ->
+                        deletePost()
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .show()
             }
 
             btnResolve.setOnClickListener {
@@ -256,6 +267,18 @@ class ItemDetailsActivity : AppCompatActivity() {
                 findViewById<View>(R.id.btnResolve).visibility = View.GONE
             } else {
                 Toast.makeText(this, "Failed to update: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun deletePost() {
+        val itemRef = database.getReference("items").child(item.id)
+        itemRef.removeValue().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(this, "Post deleted successfully", Toast.LENGTH_SHORT).show()
+                finish()
+            } else {
+                Toast.makeText(this, "Failed to delete post: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
             }
         }
     }

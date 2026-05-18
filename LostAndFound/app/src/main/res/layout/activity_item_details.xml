@@ -605,6 +605,41 @@
                 android:layout_marginBottom="12dp">
 
                 <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btnDelete"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="10dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:visibility="gone"
+                    app:cardBackgroundColor="#FFEBEE"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#FFCDD2"
+                    app:strokeWidth="1dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:src="@drawable/delete"
+                            app:tint="#D32F2F" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/delete"
+                            android:textColor="#D32F2F"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btnReport"
                     android:layout_width="0dp"
                     android:layout_height="52dp"
@@ -631,7 +666,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="Report"
+                            android:text="@string/report"
                             android:textColor="#555555"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -662,7 +697,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:text="Contact Owner"
+                            android:text="@string/contact_owner"
                             android:textColor="#FFFFFF"
                             android:textSize="14sp"
                             android:textStyle="bold" />

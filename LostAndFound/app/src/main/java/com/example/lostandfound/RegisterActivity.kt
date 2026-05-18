@@ -71,7 +71,6 @@ class RegisterActivity : AppCompatActivity() {
                                 val firebaseUser = auth.currentUser
                                 val uid = firebaseUser?.uid
 
-                                // Generate Initials safely
                                 val initials = name.split(' ').mapNotNull { it.firstOrNull()?.toString() }.joinToString("").take(2).uppercase()
 
                                 val userMap = hashMapOf(

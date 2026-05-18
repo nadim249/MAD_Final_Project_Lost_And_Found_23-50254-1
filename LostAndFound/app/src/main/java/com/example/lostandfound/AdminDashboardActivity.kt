@@ -55,10 +55,8 @@ class AdminDashboardActivity : AppCompatActivity() {
                 .setMessage("Are you sure you want to close the control panel and sign out?")
                 .setPositiveButton("Sign Out") { _, _ ->
 
-                    // 1. Sign out of Firebase
                     FirebaseAuth.getInstance().signOut()
 
-                    // 2. Route back to Login screen safely
                     val intent = Intent(this, LoginActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)

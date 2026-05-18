@@ -82,7 +82,6 @@ class UserDetailsActivity : AppCompatActivity() {
                 .setTitle("Delete User")
                 .setMessage("Are you sure you want to delete ${user.name}?")
                 .setPositiveButton("Delete") { _, _ ->
-                    // TODO: Implement actual delete logic (API call)
                     Toast.makeText(this, "User deleted", Toast.LENGTH_SHORT).show()
                     finish()
                 }

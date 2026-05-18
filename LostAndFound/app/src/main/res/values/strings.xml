@@ -60,4 +60,7 @@
     <string name="tag_id">🏷 ID</string>
     <string name="tag_important">🏷 Important</string>
 
+    <string name="delete">Delete</string>
+    <string name="report">Report</string>
+    <string name="contact_owner">Contact Owner</string>
 </resources>

@@ -33,7 +33,6 @@ class RecentItemsAdapter(private val items: List<ItemModel>) :
         holder.tvLocation.text = item.location
         holder.tvDate.text = item.date
 
-        // Dynamic Styling based on Status
         if (item.type == "Lost") {
             holder.badgeStatus.setCardBackgroundColor(Color.parseColor("#7B5EA7"))
             holder.tvBadgeText.text = "Lost"
