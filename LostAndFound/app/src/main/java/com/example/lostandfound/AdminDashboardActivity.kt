@@ -37,7 +37,7 @@ class AdminDashboardActivity : AppCompatActivity() {
 
         database = FirebaseDatabase.getInstance()
 
-        // Initialize TextViews
+
         tvTotalUsers = findViewById(R.id.tvTotalUsers)
         tvActiveItems = findViewById(R.id.tvActiveItems)
         tvResolved = findViewById(R.id.tvResolved)
@@ -45,18 +45,20 @@ class AdminDashboardActivity : AppCompatActivity() {
         tvViewItemsCount = findViewById(R.id.tvViewItemsCount)
         tvClaimCount = findViewById(R.id.tvClaimCount)
 
-        // Fetch Data
         fetchStats()
 
-        // Stats cards
         findViewById<View>(R.id.cardTotalUsers).setOnClickListener {
             startActivity(Intent(this, UserListActivity::class.java))
         }
         findViewById<View>(R.id.cardActiveItems).setOnClickListener {
-            startActivity(Intent(this, ItemsListActivity::class.java))
+            val intent = Intent(this, ItemsListActivity::class.java)
+            intent.putExtra("FILTER_STATUS", "Active")
+            startActivity(intent)
         }
         findViewById<View>(R.id.cardResolved).setOnClickListener {
-           startActivity(Intent(this, ItemsListActivity::class.java))
+            val intent = Intent(this, ItemsListActivity::class.java)
+            intent.putExtra("FILTER_STATUS", "Resolved")
+            startActivity(intent)
         }
         findViewById<View>(R.id.cardPendingReports).setOnClickListener {
             startActivity(Intent(this, ReportsActivity::class.java))
@@ -67,7 +69,9 @@ class AdminDashboardActivity : AppCompatActivity() {
             startActivity(Intent(this, UserListActivity::class.java))
         }
         findViewById<View>(R.id.cardViewItems).setOnClickListener {
-            startActivity(Intent(this, ItemsListActivity::class.java))
+            val intent = Intent(this, ItemsListActivity::class.java)
+            intent.putExtra("FILTER_STATUS", "Active")
+            startActivity(intent)
         }
         findViewById<View>(R.id.cardClaimRequests).setOnClickListener {
             startActivity(Intent(this, ClaimRequestsActivity::class.java))

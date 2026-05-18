@@ -13,7 +13,7 @@ data class ClaimRequest(
     val claimantName: String,
     val verificationText: String,
     val timeAgo: String,
-    val status: String   // "Pending", "Approved", "Rejected"
+    val status: String
 )
 
 class ClaimRequestAdapter(

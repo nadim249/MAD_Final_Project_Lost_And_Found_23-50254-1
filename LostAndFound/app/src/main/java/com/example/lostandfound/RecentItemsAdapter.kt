@@ -74,7 +74,7 @@ class RecentItemsAdapter(
             } else {
                 Intent(context, ItemDetailsActivity::class.java)
             }
-            intent.putExtra("ITEM_DATA", item) // Pass object to details screen
+            intent.putExtra("ITEM_DATA", item)
             context.startActivity(intent)
         }
     }

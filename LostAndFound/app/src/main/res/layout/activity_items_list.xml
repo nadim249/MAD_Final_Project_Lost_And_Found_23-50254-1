@@ -83,24 +83,6 @@
                         android:inputType="text" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
-
-            <!-- Filter Chip: All / Lost / Found -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/filterCard"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:clickable="true"
-                android:focusable="true"
-                app:cardBackgroundColor="#6B8DD6"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="0dp">
-                <ImageView
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/filter_icon"
-                    app:tint="#FFFFFF" />
-            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
         <!-- Filter Pills -->
@@ -129,7 +111,9 @@
                     android:text="All"
                     android:textColor="#FFFFFF"
                     android:textSize="13sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:clickable="true"
+                    android:focusable="true" />
                 <TextView
                     android:id="@+id/filterLost"
                     android:layout_width="wrap_content"
@@ -140,7 +124,9 @@
                     android:paddingHorizontal="16dp"
                     android:text="Lost"
                     android:textColor="#888888"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:clickable="true"
+                    android:focusable="true" />
                 <TextView
                     android:id="@+id/filterFound"
                     android:layout_width="wrap_content"
@@ -150,7 +136,9 @@
                     android:paddingHorizontal="16dp"
                     android:text="Found"
                     android:textColor="#888888"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:clickable="true"
+                    android:focusable="true" />
             </LinearLayout>
         </HorizontalScrollView>
 

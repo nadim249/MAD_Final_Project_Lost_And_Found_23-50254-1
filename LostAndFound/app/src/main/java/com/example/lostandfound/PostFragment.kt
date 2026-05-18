@@ -149,11 +149,9 @@ class PostFragment : Fragment() {
             cardLost.setStrokeColor(Color.parseColor("#E0E0E0"))
             cardLost.setStrokeWidth(3)
 
-            // Show office submission toggle for found items
             cardOfficeSubmission.visibility = View.VISIBLE
         }
 
-        // Calendar Date Picker
         cardDate.setOnClickListener {
             val calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
@@ -246,7 +244,7 @@ class PostFragment : Fragment() {
 
             val itemRef = database.getReference("items").push()
 
-            var base64ImageString = "bell" // Fallback to our dummy icon name
+            var base64ImageString = "bell"
 
             if (selectedImageUri != null) {
                 try {

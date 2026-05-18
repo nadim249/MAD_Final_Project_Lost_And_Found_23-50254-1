@@ -10,5 +10,5 @@ data class ReportModel(
     val reportedByEmail: String = "",
     val reason: String = "",
     val timestamp: Long = 0L,
-    val status: String = "Pending" // Pending, Reviewed, Resolved
+    val status: String = "Pending"
 ) : Serializable
