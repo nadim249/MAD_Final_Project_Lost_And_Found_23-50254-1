@@ -123,7 +123,10 @@ class HomeFragment : Fragment() {
                                 val item = itemSnapshot.getValue(ItemModel::class.java)
                                 if (item != null) {
                                     item.id = itemSnapshot.key ?: ""
-                                    allItems.add(item)
+                                    // Only show Active items in Recent Items
+                                    if (item.status == "Active") {
+                                        allItems.add(item)
+                                    }
                                 }
                             }
 

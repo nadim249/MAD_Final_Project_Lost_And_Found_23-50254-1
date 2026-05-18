@@ -1,6 +1,5 @@
 package com.example.lostandfound
 
-
 import java.io.Serializable
 
 data class ItemModel(
@@ -11,6 +10,7 @@ data class ItemModel(
     val location: String = "",
     val date: String = "",
     val postedBy: String = "",
+    val postedByEmail: String = "",
     val status: String = "Active",
     val imagePath: String = "bell",
     val color: String = "",

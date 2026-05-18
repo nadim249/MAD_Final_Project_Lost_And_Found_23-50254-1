@@ -1,7 +1,6 @@
 package com.example.lostandfound
 
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -16,7 +15,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
@@ -24,6 +22,7 @@ import com.google.android.material.card.MaterialCardView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ServerValue
 import java.io.ByteArrayOutputStream
 import java.util.Calendar
 
@@ -64,7 +63,8 @@ class PostFragment : Fragment() {
     private lateinit var tagSports: MaterialCardView
 
     // Modern Photo Picker Setup
-    private val pickMedia = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->        if (uri != null) {
+    private val pickMedia = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        if (uri != null) {
             try {
                 selectedImageUri = uri
                 photoThumb1.visibility = View.VISIBLE
@@ -77,9 +77,11 @@ class PostFragment : Fragment() {
             Log.d("PhotoPicker", "No media selected")
         }
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_post, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -158,7 +160,6 @@ class PostFragment : Fragment() {
             datePickerDialog.show()
         }
 
-        // TO THIS:
         cardAddPhoto.setOnClickListener {
             pickMedia.launch("image/*")
         }
@@ -215,6 +216,7 @@ class PostFragment : Fragment() {
             val description = etDescription.text.toString().trim()
             val location = etLocation.text.toString().trim()
             val currentUserId = auth.currentUser?.uid
+            val currentUserEmail = auth.currentUser?.email ?: "Unknown"
 
             if (title.isEmpty() || description.isEmpty() || location.isEmpty() || selectedDateString.isEmpty()) {
                 Toast.makeText(requireContext(), "Please complete all mandatory text fields.", Toast.LENGTH_SHORT).show()
@@ -226,12 +228,10 @@ class PostFragment : Fragment() {
                 return
             }
 
-            // Show loading state
             btnPostItem.text = "Saving..."
 
             val itemRef = database.getReference("items").push()
 
-            // --- BASE64 CONVERSION FLOW ---
             var base64ImageString = "bell" // Fallback to our dummy icon name
 
             if (selectedImageUri != null) {
@@ -243,8 +243,7 @@ class PostFragment : Fragment() {
                 }
             }
 
-            // Save directly to Realtime Database
-            saveItemToDatabase(itemRef, title, description, location, currentUserId, base64ImageString)
+            saveItemToDatabase(itemRef, title, description, location, currentUserId, currentUserEmail, base64ImageString)
 
         } catch (e: Exception) {
             Log.e("PostFragment", "Crash captured during submission", e)
@@ -253,29 +252,25 @@ class PostFragment : Fragment() {
         }
     }
 
-    // Shrinks the image and turns it into a Base64 Text String
     private fun encodeImageToBase64(uri: Uri): String {
         requireContext().contentResolver.openInputStream(uri)?.use { inputStream ->
             val originalBitmap = BitmapFactory.decodeStream(inputStream) ?: throw Exception("Failed to decode bitmap")
 
-            // 1. Shrink the image to a max width of 600px to save database space
             val maxWidth = 600
             val scale = maxWidth.toFloat() / originalBitmap.width
             val newHeight = (originalBitmap.height * scale).toInt()
             val resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, maxWidth, newHeight, true)
 
-            // 2. Compress the image to JPEG at 60% quality
             val outputStream = ByteArrayOutputStream()
             resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 60, outputStream)
 
-            // 3. Convert to Base64 String
             val imageBytes = outputStream.toByteArray()
             return Base64.encodeToString(imageBytes, Base64.DEFAULT)
         }
         throw Exception("Failed to open input stream")
     }
 
-    private fun saveItemToDatabase(itemRef: DatabaseReference, title: String, description: String, location: String, uid: String, imageString: String) {
+    private fun saveItemToDatabase(itemRef: DatabaseReference, title: String, description: String, location: String, uid: String, email: String, imageString: String) {
         val itemPostDataStructure = hashMapOf(
             "title" to title,
             "description" to description,
@@ -283,8 +278,9 @@ class PostFragment : Fragment() {
             "location" to location,
             "date" to selectedDateString,
             "postedBy" to uid,
+            "postedByEmail" to email,
             "status" to "Active",
-            "imagePath" to imageString, // Holds Base64 TEXT or "bell" fallback
+            "imagePath" to imageString,
             "color" to "Not specified",
             "brand" to selectedCategory,
             "size" to "Standard"
@@ -293,9 +289,12 @@ class PostFragment : Fragment() {
         itemRef.setValue(itemPostDataStructure)
             .addOnCompleteListener { dbTask ->
                 if (dbTask.isSuccessful) {
+                    val statKey = if (selectedType == "Lost") "itemsLost" else "itemsFound"
+                    database.getReference("users").child(uid).child("stats").child(statKey)
+                        .setValue(ServerValue.increment(1))
+
                     Toast.makeText(requireContext(), "Item posted successfully!", Toast.LENGTH_SHORT).show()
 
-                    // Reset Form
                     etItemTitle.text.clear()
                     etDescription.text.clear()
                     etLocation.text.clear()
@@ -307,7 +306,6 @@ class PostFragment : Fragment() {
                     cardAddPhoto.visibility = View.VISIBLE
                     ivPhoto1.setImageDrawable(null)
 
-                    // Go back to Home tab
                     activity?.findViewById<View>(R.id.nav_home)?.performClick()
                 } else {
                     Toast.makeText(requireContext(), "Database failed: ${dbTask.exception?.message}", Toast.LENGTH_LONG).show()

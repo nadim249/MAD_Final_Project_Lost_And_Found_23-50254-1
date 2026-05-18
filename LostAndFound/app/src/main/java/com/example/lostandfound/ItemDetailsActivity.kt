@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ServerValue
 import com.google.firebase.database.ValueEventListener
 
 class ItemDetailsActivity : AppCompatActivity() {
@@ -89,6 +91,7 @@ class ItemDetailsActivity : AppCompatActivity() {
             val btnReport = findViewById<View>(R.id.btnReport)
             val btnContactOwner = findViewById<View>(R.id.btnContactOwner)
             val btnClaimItem = findViewById<MaterialCardView>(R.id.btnClaimItem)
+            val btnResolve = findViewById<MaterialCardView>(R.id.btnResolve)
 
             // Populate Core Item Data
             tvItemTitle.text = item.title
@@ -99,6 +102,18 @@ class ItemDetailsActivity : AppCompatActivity() {
             tvBrand.text = if (item.brand.isNotEmpty()) item.brand else "N/A"
             tvSize.text = if (item.size.isNotEmpty()) item.size else "N/A"
             tvItemStatus.text = item.status
+
+            if (item.status == "Resolved") {
+                tvItemStatus.setTextColor(Color.GRAY)
+                btnClaimItem.visibility = View.GONE
+                btnContactOwner.visibility = View.GONE
+            }
+
+            // Initialize Poster Data with item fields (fallback/quick load)
+            tvPosterName.text = "Loading..."
+            tvPosterInitials.text = "??"
+            tvPosterDept.text = item.postedByEmail // Show email while loading full profile
+
 
             // Tags
             tvTag1.text = item.type
@@ -141,6 +156,24 @@ class ItemDetailsActivity : AppCompatActivity() {
             if (currentUserId == item.postedBy) {
                 btnContactOwner.visibility = View.GONE
                 btnClaimItem.visibility = View.GONE
+                if (item.status != "Resolved") {
+                    btnResolve.visibility = View.VISIBLE
+                } else {
+                    btnResolve.visibility = View.GONE
+                }
+            } else {
+                btnResolve.visibility = View.GONE
+            }
+
+            btnResolve.setOnClickListener {
+                AlertDialog.Builder(this)
+                    .setTitle("Mark as Resolved")
+                    .setMessage("Has this item been returned to its owner?")
+                    .setPositiveButton("Yes, Resolved") { _, _ ->
+                        markItemAsResolved()
+                    }
+                    .setNegativeButton("Cancel", null)
+                    .show()
             }
 
             // Fetch Poster Details from Firebase
@@ -195,6 +228,30 @@ class ItemDetailsActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Log.e("ItemDetailsActivity", "Error binding views", e)
             Toast.makeText(this, "Error loading UI elements", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun markItemAsResolved() {
+        val currentUserId = auth.currentUser?.uid ?: return
+        val itemRef = database.getReference("items").child(item.id)
+
+        val updates = hashMapOf<String, Any>(
+            "status" to "Resolved"
+        )
+
+        itemRef.updateChildren(updates).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // Increment user's resolved count
+                database.getReference("users").child(currentUserId).child("stats").child("resolved")
+                    .setValue(ServerValue.increment(1))
+
+                Toast.makeText(this, "Item marked as resolved!", Toast.LENGTH_SHORT).show()
+                findViewById<TextView>(R.id.tvItemStatus).text = "Resolved"
+                findViewById<TextView>(R.id.tvItemStatus).setTextColor(Color.GRAY)
+                findViewById<View>(R.id.btnResolve).visibility = View.GONE
+            } else {
+                Toast.makeText(this, "Failed to update: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
