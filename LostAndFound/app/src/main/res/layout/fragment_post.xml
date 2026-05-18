@@ -219,6 +219,72 @@
                     android:inputType="textCapSentences" />
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- BRAND -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Brand"
+                android:textColor="#1A1A2E"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginBottom="24dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#E0E0E0"
+                app:strokeWidth="1dp">
+
+                <EditText
+                    android:id="@+id/etBrand"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="e.g., Nike, Apple, Samsung"
+                    android:textColorHint="#AAAAAA"
+                    android:textSize="14sp"
+                    android:textColor="#1A1A2E"
+                    android:paddingHorizontal="16dp"
+                    android:inputType="textCapWords" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- COLOR -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Color"
+                android:textColor="#1A1A2E"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="10dp" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginBottom="24dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="0dp"
+                app:strokeColor="#E0E0E0"
+                app:strokeWidth="1dp">
+
+                <EditText
+                    android:id="@+id/etColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="e.g., Black, Blue, Silver"
+                    android:textColorHint="#AAAAAA"
+                    android:textSize="14sp"
+                    android:textColor="#1A1A2E"
+                    android:paddingHorizontal="16dp"
+                    android:inputType="textCapWords" />
+            </com.google.android.material.card.MaterialCardView>
+
             <!-- DESCRIPTION -->
             <TextView
                 android:layout_width="wrap_content"

@@ -44,6 +44,8 @@ class PostFragment : Fragment() {
     private lateinit var cardFound: MaterialCardView
     private lateinit var etItemTitle: EditText
     private lateinit var etDescription: EditText
+    private lateinit var etBrand: EditText
+    private lateinit var etColor: EditText
     private lateinit var etLocation: EditText
     private lateinit var tvDate: TextView
     private lateinit var cardDate: MaterialCardView
@@ -101,6 +103,8 @@ class PostFragment : Fragment() {
         cardFound = view.findViewById(R.id.cardFound)
         etItemTitle = view.findViewById(R.id.etItemTitle)
         etDescription = view.findViewById(R.id.etDescription)
+        etBrand = view.findViewById(R.id.etBrand)
+        etColor = view.findViewById(R.id.etColor)
         etLocation = view.findViewById(R.id.etLocation)
         tvDate = view.findViewById(R.id.tvDate)
         cardDate = view.findViewById(R.id.cardDate)
@@ -226,6 +230,8 @@ class PostFragment : Fragment() {
         try {
             val title = etItemTitle.text.toString().trim()
             val description = etDescription.text.toString().trim()
+            val brand = etBrand.text.toString().trim()
+            val color = etColor.text.toString().trim()
             val location = etLocation.text.toString().trim()
             val currentUserId = auth.currentUser?.uid
             val currentUserEmail = auth.currentUser?.email ?: "Unknown"
@@ -255,7 +261,7 @@ class PostFragment : Fragment() {
                 }
             }
 
-            saveItemToDatabase(itemRef, title, description, location, currentUserId, currentUserEmail, base64ImageString)
+            saveItemToDatabase(itemRef, title, description, brand, color, location, currentUserId, currentUserEmail, base64ImageString)
 
         } catch (e: Exception) {
             Log.e("PostFragment", "Crash captured during submission", e)
@@ -282,7 +288,7 @@ class PostFragment : Fragment() {
         throw Exception("Failed to open input stream")
     }
 
-    private fun saveItemToDatabase(itemRef: DatabaseReference, title: String, description: String, location: String, uid: String, email: String, imageString: String) {
+    private fun saveItemToDatabase(itemRef: DatabaseReference, title: String, description: String, brand: String, color: String, location: String, uid: String, email: String, imageString: String) {
         val itemPostDataStructure = hashMapOf(
             "title" to title,
             "description" to description,
@@ -294,8 +300,8 @@ class PostFragment : Fragment() {
             "status" to "Active",
             "submittedToOffice" to isSubmittedToOffice,
             "imagePath" to imageString,
-            "color" to "Not specified",
-            "brand" to selectedCategory,
+            "color" to if (color.isNotEmpty()) color else "Not specified",
+            "brand" to if (brand.isNotEmpty()) brand else selectedCategory,
             "size" to "Standard"
         )
 
@@ -314,6 +320,8 @@ class PostFragment : Fragment() {
 
                     etItemTitle.text.clear()
                     etDescription.text.clear()
+                    etBrand.text.clear()
+                    etColor.text.clear()
                     etLocation.text.clear()
                     tvDate.text = "mm/dd/yyyy"
                     tvDate.setTextColor(Color.parseColor("#AAAAAA"))

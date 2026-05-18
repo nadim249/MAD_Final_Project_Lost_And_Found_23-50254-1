@@ -128,7 +128,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="24dp"
-                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardBackgroundColor="#C4E2F5"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="2dp"
                     app:strokeWidth="0dp">
@@ -229,7 +229,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="8dp"
-                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardBackgroundColor="#C4E2F5"
                     app:cardCornerRadius="20dp"
                     app:cardElevation="2dp"
                     app:strokeWidth="0dp">
@@ -245,29 +245,84 @@
                             android:layout_height="48dp"
                             android:gravity="center_vertical"
                             android:orientation="horizontal">
-                            <TextView android:layout_width="100dp" android:layout_height="wrap_content" android:text="Email" android:textColor="#A0A0A0" android:textSize="14sp" />
-                            <TextView android:id="@+id/tvUserEmail" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="student@university.edu" android:textColor="#A0A0A0" android:textSize="14sp" android:ellipsize="end" android:singleLine="true" />
+                            <TextView android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="Email"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+                            <TextView android:id="@+id/tvUserEmail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="student@university.edu"
+                                android:textColor="#575F5D"
+                                android:textSize="14sp"
+                                android:ellipsize="end"
+                                android:singleLine="true" />
+                        </LinearLayout>
+
+                        <View android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#F5F5F5"/>
+
+                        <LinearLayout android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+                            <TextView android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="Phone"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+                            <EditText android:id="@+id/etUserPhone"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:hint="Not specified"
+                                android:textColor="#575F5D"
+                                android:textSize="14sp"
+                                android:inputType="phone"
+                                android:enabled="false" />
                         </LinearLayout>
 
                         <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F5F5F5"/>
 
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="48dp" android:gravity="center_vertical" android:orientation="horizontal">
-                            <TextView android:layout_width="100dp" android:layout_height="wrap_content" android:text="Phone" android:textColor="#A0A0A0" android:textSize="14sp" />
-                            <EditText android:id="@+id/etUserPhone" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@null" android:hint="Not specified" android:textColor="#1A1A2E" android:textSize="14sp" android:inputType="phone" android:enabled="false" />
+                        <LinearLayout android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+                            <TextView android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="Department"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+                            <EditText android:id="@+id/etUserDept"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:hint="Not specified"
+                                android:textColor="#575F5D"
+                                android:textSize="14sp" android:inputType="text" android:enabled="false" />
                         </LinearLayout>
 
                         <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F5F5F5"/>
 
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="48dp" android:gravity="center_vertical" android:orientation="horizontal">
-                            <TextView android:layout_width="100dp" android:layout_height="wrap_content" android:text="Department" android:textColor="#A0A0A0" android:textSize="14sp" />
-                            <EditText android:id="@+id/etUserDept" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@null" android:hint="Not specified" android:textColor="#1A1A2E" android:textSize="14sp" android:inputType="text" android:enabled="false" />
-                        </LinearLayout>
-
-                        <View android:layout_width="match_parent" android:layout_height="1dp" android:background="#F5F5F5"/>
-
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="48dp" android:gravity="center_vertical" android:orientation="horizontal">
-                            <TextView android:layout_width="100dp" android:layout_height="wrap_content" android:text="Campus" android:textColor="#A0A0A0" android:textSize="14sp" />
-                            <EditText android:id="@+id/etUserCampus" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@null" android:hint="Not specified" android:textColor="#1A1A2E" android:textSize="14sp" android:inputType="text" android:enabled="false" />
+                        <LinearLayout android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:gravity="center_vertical" android:orientation="horizontal">
+                            <TextView android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="Campus"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+                            <EditText android:id="@+id/etUserCampus"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@null"
+                                android:hint="Not specified"
+                                android:textColor="#575F5D"
+                                android:textSize="14sp"
+                                android:inputType="text"
+                                android:enabled="false" />
                         </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -303,10 +358,10 @@
                     android:layout_marginTop="16dp"
                     android:clickable="true"
                     android:focusable="true"
-                    app:cardBackgroundColor="#FFF5F5"
+                    app:cardBackgroundColor="#FFE1E1"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="0dp"
-                    app:strokeColor="#FFD2D2"
+                    app:strokeColor="#F89595"
                     app:strokeWidth="1dp">
                     <TextView
                         android:layout_width="wrap_content"

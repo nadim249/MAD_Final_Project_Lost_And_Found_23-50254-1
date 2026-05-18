@@ -85,6 +85,9 @@ class AdminItemDetailsActivity : AppCompatActivity() {
         val tvWhen = findViewById<TextView>(R.id.tvWhen)
         val tvDescription = findViewById<TextView>(R.id.tvDescription)
         val tvItemStatus = findViewById<TextView>(R.id.tvItemStatus)
+        val tvColor = findViewById<TextView>(R.id.tvColor)
+        val tvBrand = findViewById<TextView>(R.id.tvBrand)
+        val tvSize = findViewById<TextView>(R.id.tvSize)
         
         // Admin specific: hide user action buttons
         findViewById<View>(R.id.btnReport).visibility = View.GONE
@@ -101,6 +104,9 @@ class AdminItemDetailsActivity : AppCompatActivity() {
         tvLocation.text = item.location
         tvWhen.text = item.date
         tvItemStatus.text = item.status
+        tvColor.text = if (item.color.isNotEmpty()) item.color else "N/A"
+        tvBrand.text = if (item.brand.isNotEmpty()) item.brand else "N/A"
+        tvSize.text = if (item.size.isNotEmpty()) item.size else "N/A"
 
         if (item.type == "Lost") {
             badgeStatus.setCardBackgroundColor(Color.parseColor("#E57373"))

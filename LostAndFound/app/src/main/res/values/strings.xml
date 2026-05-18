@@ -38,27 +38,6 @@
     <string name="filter_lost">Lost</string>
     <string name="filter_found">Found</string>
 
-    <!-- Mock Data (Home Screen) -->
-    <string name="item_1_title">Black Backpack</string>
-    <string name="item_1_ai_match">✨ 95% AI Match</string>
-    <string name="item_1_desc">Black Nike backpack with laptop inside</string>
-    <string name="item_1_loc">Library - 2nd Floor</string>
-    <string name="item_1_time">2 hours ago</string>
-    <string name="tag_backpack">🏷 Backpack</string>
-    <string name="tag_electronics">🏷 Electronics</string>
-
-    <string name="item_2_title">iPhone 13 Pro</string>
-    <string name="item_2_desc">Found in blue case near cafeteria</string>
-    <string name="item_2_loc">Student Center</string>
-    <string name="item_2_time">5 hours ago</string>
-    <string name="tag_phone">🏷 Phone</string>
-
-    <string name="item_3_title">Student ID Card</string>
-    <string name="item_3_desc">ID card with photo, turned in to front desk</string>
-    <string name="item_3_loc">Gym</string>
-    <string name="item_3_time">1 day ago</string>
-    <string name="tag_id">🏷 ID</string>
-    <string name="tag_important">🏷 Important</string>
 
     <string name="delete">Delete</string>
     <string name="report">Report</string>
