@@ -29,7 +29,6 @@ class ItemDetailsActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -112,8 +111,7 @@ class ItemDetailsActivity : AppCompatActivity() {
             // Initialize Poster Data with item fields (fallback/quick load)
             tvPosterName.text = "Loading..."
             tvPosterInitials.text = "??"
-            tvPosterDept.text = item.postedByEmail // Show email while loading full profile
-
+            tvPosterDept.text = item.postedByEmail
 
             // Tags
             tvTag1.text = item.type
@@ -211,8 +209,16 @@ class ItemDetailsActivity : AppCompatActivity() {
             }
 
             btnContactOwner.setOnClickListener {
-                val intent = Intent(this, ChatActivity::class.java)
-                intent.putExtra("name", tvPosterName.text.toString())
+                val targetName = tvPosterName.text.toString()
+                if (targetName == "Loading..." || item.postedBy.isEmpty()) {
+                    Toast.makeText(this, "Loading profile details, please wait...", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                val intent = Intent(this, ChatActivity::class.java).apply {
+                    putExtra("PEER_ID", item.postedBy)
+                    putExtra("PEER_NAME", targetName)
+                }
                 startActivity(intent)
             }
 
@@ -241,7 +247,6 @@ class ItemDetailsActivity : AppCompatActivity() {
 
         itemRef.updateChildren(updates).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                // Increment user's resolved count
                 database.getReference("users").child(currentUserId).child("stats").child("resolved")
                     .setValue(ServerValue.increment(1))
 
