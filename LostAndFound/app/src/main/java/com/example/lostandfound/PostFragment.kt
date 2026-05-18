@@ -20,25 +20,25 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.card.MaterialCardView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
+import com.google.firebase.database.ValueEventListener
 import java.io.ByteArrayOutputStream
 import java.util.Calendar
 
 class PostFragment : Fragment() {
 
-    // Firebase
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
 
-    // Form Selection States
     private var selectedType = "Lost"
     private var selectedCategory = "Electronics"
     private var selectedDateString = ""
     private var selectedImageUri: Uri? = null
 
-    // UI Element Hooks
     private lateinit var cardLost: MaterialCardView
     private lateinit var cardFound: MaterialCardView
     private lateinit var etItemTitle: EditText
@@ -53,7 +53,6 @@ class PostFragment : Fragment() {
     private lateinit var btnPostCard: MaterialCardView
     private lateinit var btnPostItem: TextView
 
-    // Category Tags UI Hooks
     private lateinit var tagElectronics: MaterialCardView
     private lateinit var tagClothing: MaterialCardView
     private lateinit var tagBooks: MaterialCardView
@@ -62,7 +61,6 @@ class PostFragment : Fragment() {
     private lateinit var tagAccessories: MaterialCardView
     private lateinit var tagSports: MaterialCardView
 
-    // Modern Photo Picker Setup
     private val pickMedia = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         if (uri != null) {
             try {
@@ -91,7 +89,6 @@ class PostFragment : Fragment() {
         initializeViews(view)
         setupClickListeners()
 
-        // Initialize default UI states
         resetCategoryTagsUi()
         applyCategoryTagSelection(tagElectronics, "Electronics")
     }
@@ -289,9 +286,13 @@ class PostFragment : Fragment() {
         itemRef.setValue(itemPostDataStructure)
             .addOnCompleteListener { dbTask ->
                 if (dbTask.isSuccessful) {
+                    val generatedItemId = itemRef.key ?: ""
                     val statKey = if (selectedType == "Lost") "itemsLost" else "itemsFound"
                     database.getReference("users").child(uid).child("stats").child(statKey)
                         .setValue(ServerValue.increment(1))
+
+                    // Notify other users about the new post
+                    sendNotificationsToOthers(generatedItemId, title, location, uid)
 
                     Toast.makeText(requireContext(), "Item posted successfully!", Toast.LENGTH_SHORT).show()
 
@@ -312,5 +313,29 @@ class PostFragment : Fragment() {
                 }
                 btnPostItem.text = "Post Item"
             }
+    }
+
+    private fun sendNotificationsToOthers(generatedItemId: String, title: String, location: String, posterId: String) {
+        database.getReference("users").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (userSnapshot in snapshot.children) {
+                    val targetUserId = userSnapshot.key
+                    if (targetUserId != null && targetUserId != posterId) {
+                        val notificationPayload = hashMapOf(
+                            "title" to "New $selectedType Item Posted!",
+                            "body" to "$title was reported near $location.",
+                            "timestamp" to System.currentTimeMillis(),
+                            "type" to "NewPost", // Must match this exactly for the filter to work!
+                            "referenceId" to generatedItemId
+                        )
+                        database.getReference("notifications").child(targetUserId).push().setValue(notificationPayload)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("PostFragment", "Failed to send notifications", error.toException())
+            }
+        })
     }
 }

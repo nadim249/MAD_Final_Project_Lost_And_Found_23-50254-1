@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
     private lateinit var filterAll: TextView
     private lateinit var filterLost: TextView
     private lateinit var filterFound: TextView
+    private lateinit var filterMyPosts: TextView
     private lateinit var etSearch: EditText
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -50,6 +51,7 @@ class HomeFragment : Fragment() {
         filterAll = view.findViewById(R.id.filterAll)
         filterLost = view.findViewById(R.id.filterLost)
         filterFound = view.findViewById(R.id.filterFound)
+        filterMyPosts = view.findViewById(R.id.filterMyPosts)
         etSearch = view.findViewById(R.id.etSearch)
 
         rvRecentItems = view.findViewById(R.id.rvRecentItems)
@@ -97,6 +99,7 @@ class HomeFragment : Fragment() {
         filterAll.setOnClickListener { applyFilter("All") }
         filterLost.setOnClickListener { applyFilter("Lost") }
         filterFound.setOnClickListener { applyFilter("Found") }
+        filterMyPosts.setOnClickListener { applyFilter("MyPosts") }
 
         etSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -160,10 +163,12 @@ class HomeFragment : Fragment() {
         filterAll.setBackgroundResource(R.drawable.pill_inactive_bg)
         filterLost.setBackgroundResource(R.drawable.pill_inactive_bg)
         filterFound.setBackgroundResource(R.drawable.pill_inactive_bg)
+        filterMyPosts.setBackgroundResource(R.drawable.pill_inactive_bg)
 
         filterAll.setTextColor(resources.getColor(R.color.textSecondary, null))
         filterLost.setTextColor(resources.getColor(R.color.textSecondary, null))
         filterFound.setTextColor(resources.getColor(R.color.textSecondary, null))
+        filterMyPosts.setTextColor(resources.getColor(R.color.textSecondary, null))
 
         // Set Active Pill Style
         when (filterType) {
@@ -179,6 +184,10 @@ class HomeFragment : Fragment() {
                 filterFound.setBackgroundResource(R.drawable.pill_active_bg)
                 filterFound.setTextColor(resources.getColor(R.color.white, null))
             }
+            "MyPosts" -> {
+                filterMyPosts.setBackgroundResource(R.drawable.pill_active_bg)
+                filterMyPosts.setTextColor(resources.getColor(R.color.white, null))
+            }
         }
 
         updateDisplayedItems()
@@ -187,17 +196,26 @@ class HomeFragment : Fragment() {
     // BOTH Filter and Search
     private fun updateDisplayedItems() {
         filteredItems.clear()
+        val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
 
-        val statusFilteredList = if (currentFilter == "All") {
-            allItems
+        val baseList = if (currentFilter == "MyPosts") {
+            // Show ONLY current user's posts (including non-active ones if needed, but keeping active-only for consistency with original fetch)
+            allItems.filter { it.postedBy == currentUserId }
         } else {
-            allItems.filter { it.type == currentFilter }
+            // Show everyone ELSE's posts
+            allItems.filter { it.postedBy != currentUserId }
+        }
+
+        val typeFilteredList = if (currentFilter == "All" || currentFilter == "MyPosts") {
+            baseList
+        } else {
+            baseList.filter { it.type == currentFilter }
         }
 
         if (currentSearchQuery.isEmpty()) {
-            filteredItems.addAll(statusFilteredList)
+            filteredItems.addAll(typeFilteredList)
         } else {
-            filteredItems.addAll(statusFilteredList.filter { item ->
+            filteredItems.addAll(typeFilteredList.filter { item ->
                 item.title.contains(currentSearchQuery, ignoreCase = true) ||
                         item.description.contains(currentSearchQuery, ignoreCase = true) ||
                         item.location.contains(currentSearchQuery, ignoreCase = true)

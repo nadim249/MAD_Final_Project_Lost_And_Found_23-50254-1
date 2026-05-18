@@ -45,19 +45,45 @@ class ItemDetailsActivity : AppCompatActivity() {
         try {
             @Suppress("DEPRECATION")
             val passedItem = intent.getSerializableExtra("ITEM_DATA") as? ItemModel
-            if (passedItem == null) {
+            val passedItemId = intent.getStringExtra("ITEM_ID")
+
+            if (passedItem != null) {
+                item = passedItem
+                bindViewsAndData()
+            } else if (passedItemId != null) {
+                fetchItemAndBind(passedItemId)
+            } else {
                 Toast.makeText(this, "Error loading item details.", Toast.LENGTH_SHORT).show()
                 finish()
                 return
             }
-            item = passedItem
         } catch (e: Exception) {
             Log.e("ItemDetailsActivity", "Error extracting intent data", e)
             finish()
             return
         }
+    }
 
-        bindViewsAndData()
+    private fun fetchItemAndBind(itemId: String) {
+        database.getReference("items").child(itemId)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val fetchedItem = snapshot.getValue(ItemModel::class.java)
+                    if (fetchedItem != null) {
+                        fetchedItem.id = snapshot.key ?: itemId
+                        item = fetchedItem
+                        bindViewsAndData()
+                    } else {
+                        Toast.makeText(this@ItemDetailsActivity, "Item not found.", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(this@ItemDetailsActivity, "Database error.", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+            })
     }
 
     private fun bindViewsAndData() {
@@ -272,9 +298,21 @@ class ItemDetailsActivity : AppCompatActivity() {
     }
 
     private fun deletePost() {
+        val currentUserId = auth.currentUser?.uid ?: return
         val itemRef = database.getReference("items").child(item.id)
         itemRef.removeValue().addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                // Decrement the user's post count
+                val statKey = if (item.type == "Lost") "itemsLost" else "itemsFound"
+                database.getReference("users").child(currentUserId).child("stats").child(statKey)
+                    .setValue(ServerValue.increment(-1))
+
+                // Also decrement resolved count if the item was already resolved
+                if (item.status == "Resolved") {
+                    database.getReference("users").child(currentUserId).child("stats").child("resolved")
+                        .setValue(ServerValue.increment(-1))
+                }
+
                 Toast.makeText(this, "Post deleted successfully", Toast.LENGTH_SHORT).show()
                 finish()
             } else {

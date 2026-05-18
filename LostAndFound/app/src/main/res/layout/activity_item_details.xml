@@ -114,17 +114,17 @@
                 android:id="@+id/tvItemTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
                 android:text="Item Title"
                 android:textColor="#1A1A2E"
                 android:textSize="22sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="12dp" />
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="20dp">
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
@@ -135,17 +135,20 @@
                     app:cardElevation="0dp"
                     app:strokeColor="#DDDDDD"
                     app:strokeWidth="1dp">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingHorizontal="12dp">
+
                         <ImageView
                             android:layout_width="13dp"
                             android:layout_height="13dp"
                             android:src="@drawable/ic_tag"
                             app:tint="#888888" />
+
                         <TextView
                             android:id="@+id/tvTag1"
                             android:layout_width="wrap_content"
@@ -166,17 +169,20 @@
                     app:cardElevation="0dp"
                     app:strokeColor="#DDDDDD"
                     app:strokeWidth="1dp">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingHorizontal="12dp">
+
                         <ImageView
                             android:layout_width="13dp"
                             android:layout_height="13dp"
                             android:src="@drawable/ic_tag"
                             app:tint="#888888" />
+
                         <TextView
                             android:id="@+id/tvTag2"
                             android:layout_width="wrap_content"
@@ -216,9 +222,10 @@
                             app:cardBackgroundColor="#6B8DD6"
                             app:cardCornerRadius="24dp"
                             app:cardElevation="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent">
+                            app:layout_constraintTop_toTopOf="parent">
+
                             <TextView
                                 android:id="@+id/tvPosterInitials"
                                 android:layout_width="match_parent"
@@ -239,6 +246,7 @@
                             app:layout_constraintEnd_toStartOf="@+id/verifiedBadge"
                             app:layout_constraintStart_toEndOf="@+id/posterAvatar"
                             app:layout_constraintTop_toTopOf="parent">
+
                             <TextView
                                 android:id="@+id/tvPosterName"
                                 android:layout_width="wrap_content"
@@ -247,6 +255,7 @@
                                 android:textColor="#1A1A2E"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
+
                             <TextView
                                 android:id="@+id/tvPosterDept"
                                 android:layout_width="wrap_content"
@@ -264,11 +273,12 @@
                             app:cardBackgroundColor="#FFFFFF"
                             app:cardCornerRadius="14dp"
                             app:cardElevation="0dp"
-                            app:strokeColor="#4CAF82"
-                            app:strokeWidth="1dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:strokeColor="#4CAF82"
+                            app:strokeWidth="1dp">
+
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -276,11 +286,13 @@
                                 android:orientation="horizontal"
                                 android:paddingHorizontal="10dp"
                                 android:paddingVertical="5dp">
+
                                 <ImageView
                                     android:layout_width="13dp"
                                     android:layout_height="13dp"
                                     android:src="@drawable/outline_domain_verification_24"
                                     app:tint="#4CAF82" />
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -303,26 +315,30 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="14dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="14dp">
+                        android:orientation="horizontal">
+
                         <ImageView
                             android:layout_width="22dp"
                             android:layout_height="22dp"
                             android:src="@drawable/map_i"
                             app:tint="#6B8DD6" />
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
                             android:layout_weight="1"
                             android:orientation="vertical">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Location"
                                 android:textColor="#AAAAAA"
                                 android:textSize="12sp" />
+
                             <TextView
                                 android:id="@+id/tvLocation"
                                 android:layout_width="wrap_content"
@@ -340,23 +356,27 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
+
                         <ImageView
                             android:layout_width="22dp"
                             android:layout_height="22dp"
                             android:src="@drawable/time_i"
                             app:tint="#6B8DD6" />
+
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
                             android:layout_weight="1"
                             android:orientation="vertical">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="When"
                                 android:textColor="#AAAAAA"
                                 android:textSize="12sp" />
+
                             <TextView
                                 android:id="@+id/tvWhen"
                                 android:layout_width="wrap_content"
@@ -374,64 +394,67 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:text="Description"
                 android:textColor="#1A1A2E"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="10dp" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:lineSpacingMultiplier="1.5"
                 android:text="Item description body contents go here..."
                 android:textColor="#666666"
-                android:textSize="14sp"
-                android:layout_marginBottom="20dp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
                 android:text="Additional Details"
                 android:textColor="#1A1A2E"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="12dp" />
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="10dp">
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="0dp"
                         android:layout_height="80dp"
-                        android:layout_weight="1"
                         android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
                         app:cardBackgroundColor="#FFFFFF"
                         app:cardCornerRadius="14dp"
                         app:cardElevation="0dp"
                         app:strokeColor="#EEEEEE"
                         app:strokeWidth="1dp">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:padding="14dp">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Color"
                                 android:textColor="#AAAAAA"
                                 android:textSize="12sp" />
+
                             <TextView
                                 android:id="@+id/tvColor"
                                 android:layout_width="wrap_content"
@@ -453,17 +476,20 @@
                         app:cardElevation="0dp"
                         app:strokeColor="#EEEEEE"
                         app:strokeWidth="1dp">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:padding="14dp">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Brand"
                                 android:textColor="#AAAAAA"
                                 android:textSize="12sp" />
+
                             <TextView
                                 android:id="@+id/tvBrand"
                                 android:layout_width="wrap_content"
@@ -485,24 +511,27 @@
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="0dp"
                         android:layout_height="80dp"
-                        android:layout_weight="1"
                         android:layout_marginEnd="8dp"
+                        android:layout_weight="1"
                         app:cardBackgroundColor="#FFFFFF"
                         app:cardCornerRadius="14dp"
                         app:cardElevation="0dp"
                         app:strokeColor="#EEEEEE"
                         app:strokeWidth="1dp">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:padding="14dp">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Size"
                                 android:textColor="#AAAAAA"
                                 android:textSize="12sp" />
+
                             <TextView
                                 android:id="@+id/tvSize"
                                 android:layout_width="wrap_content"
@@ -524,17 +553,20 @@
                         app:cardElevation="0dp"
                         app:strokeColor="#EEEEEE"
                         app:strokeWidth="1dp">
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
                             android:padding="14dp">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Status"
                                 android:textColor="#AAAAAA"
                                 android:textSize="12sp" />
+
                             <TextView
                                 android:id="@+id/tvItemStatus"
                                 android:layout_width="wrap_content"
@@ -579,6 +611,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -586,6 +619,7 @@
                             android:textColor="#F57F17"
                             android:textSize="14sp"
                             android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -601,15 +635,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="12dp">
+                android:layout_marginBottom="12dp"
+                android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btnDelete"
                     android:layout_width="0dp"
                     android:layout_height="52dp"
-                    android:layout_weight="1"
                     android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
                     android:clickable="true"
                     android:focusable="true"
                     android:visibility="gone"
@@ -618,16 +652,19 @@
                     app:cardElevation="0dp"
                     app:strokeColor="#FFCDD2"
                     app:strokeWidth="1dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="horizontal">
+
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:src="@drawable/delete"
                             app:tint="#D32F2F" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -643,8 +680,8 @@
                     android:id="@+id/btnReport"
                     android:layout_width="0dp"
                     android:layout_height="52dp"
-                    android:layout_weight="1"
                     android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
                     android:clickable="true"
                     android:focusable="true"
                     app:cardBackgroundColor="#FFFFFF"
@@ -652,16 +689,19 @@
                     app:cardElevation="0dp"
                     app:strokeColor="#DDDDDD"
                     app:strokeWidth="1dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="horizontal">
+
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:src="@drawable/ic_tag"
                             app:tint="#888888" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -683,16 +723,19 @@
                     app:cardBackgroundColor="#6B8DD6"
                     app:cardCornerRadius="14dp"
                     app:cardElevation="0dp">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="horizontal">
+
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
                             android:src="@drawable/chat"
                             app:tint="#FFFFFF" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -716,16 +759,19 @@
                 app:cardBackgroundColor="#6B8DD6"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="0dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="✅"
                         android:textSize="20sp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -746,16 +792,19 @@
                 app:cardBackgroundColor="#4CAF82"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="0dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="🤚"
                         android:textSize="20sp" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
