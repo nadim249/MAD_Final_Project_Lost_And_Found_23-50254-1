@@ -8,7 +8,9 @@
     android:layout_marginVertical="7dp"
     app:cardBackgroundColor="#FFFFFF"
     app:cardCornerRadius="20dp"
-    app:cardElevation="3dp"
+    app:cardElevation="0dp"
+    app:strokeColor="#EFEFEF"
+    app:strokeWidth="1dp"
     android:clickable="true"
     android:focusable="true">
 
@@ -17,6 +19,35 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvItemTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="Item Title"
+            android:textColor="#0D0D0D"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-medium"
+            app:layout_constraintEnd_toStartOf="@+id/ivDelete"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Delete icon -->
+        <ImageView
+            android:id="@+id/ivDelete"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/delete"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/badgeStatus"
+            app:layout_constraintEnd_toStartOf="@+id/badgeStatus"
+            app:layout_constraintTop_toTopOf="@+id/badgeStatus"
+            app:tint="#E57373" />
+
+        <!-- Status badge -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/badgeStatus"
             android:layout_width="wrap_content"
@@ -40,89 +71,80 @@
                 android:textStyle="bold" />
         </com.google.android.material.card.MaterialCardView>
 
-        <TextView
-            android:id="@+id/tvItemTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="Item Title"
-            android:textColor="#1A1A2E"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/ivDelete"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/ivDelete"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/delete"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/badgeStatus"
-            app:layout_constraintEnd_toStartOf="@+id/badgeStatus"
-            app:layout_constraintTop_toTopOf="@+id/badgeStatus"
-            app:tint="#E57373" />
-
+        <!-- Description -->
         <TextView
             android:id="@+id/tvItemDesc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="5dp"
             android:text="Item description goes here..."
-            android:textColor="#666666"
+            android:textColor="#999999"
             android:textSize="13sp"
-            android:lineSpacingMultiplier="1.3"
+            android:lineSpacingMultiplier="1.4"
             android:maxLines="2"
             android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tvItemTitle"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvItemTitle" />
 
-        <ImageView
-            android:id="@+id/pinIcon"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/map_i"
-            app:tint="#6B8DD6"
-            app:layout_constraintStart_toStartOf="@+id/tvItemTitle"
+        <!-- Thin divider -->
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="14dp"
+            android:background="#F4F4F6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvItemDesc" />
 
+        <!-- Location icon -->
+        <ImageView
+            android:id="@+id/pinIcon"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginTop="12dp"
+            android:src="@drawable/map_i"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+        <!-- Location text -->
         <TextView
             android:id="@+id/tvItemLocation"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:text="Location"
-            android:textColor="#777777"
-            android:textSize="13sp"
+            android:textColor="#888888"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/pinIcon"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/clockIcon"
             app:layout_constraintStart_toEndOf="@+id/pinIcon"
             app:layout_constraintTop_toTopOf="@+id/pinIcon" />
 
+        <!-- Clock icon -->
         <ImageView
             android:id="@+id/clockIcon"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
             android:src="@drawable/time_i"
-            app:tint="#AAAAAA"
-            app:layout_constraintStart_toStartOf="@+id/tvItemTitle"
-            app:layout_constraintTop_toBottomOf="@+id/pinIcon" />
+            android:layout_marginEnd="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/pinIcon"
+            app:layout_constraintEnd_toStartOf="@+id/tvItemDate"
+            app:layout_constraintTop_toTopOf="@+id/pinIcon" />
 
+        <!-- Date text -->
         <TextView
             android:id="@+id/tvItemDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
+            android:layout_marginStart="5dp"
             android:text="Date"
-            android:textColor="#777777"
-            android:textSize="13sp"
+            android:textColor="#BBBBBB"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/clockIcon"
-            app:layout_constraintStart_toEndOf="@+id/clockIcon"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/clockIcon" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
