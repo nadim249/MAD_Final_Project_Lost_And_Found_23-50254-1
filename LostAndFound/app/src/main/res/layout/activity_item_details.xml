@@ -199,38 +199,7 @@
                         </LinearLayout>
                     </com.google.android.material.card.MaterialCardView>
 
-                    <!-- AI Match Badge -->
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="32dp"
-                        app:cardBackgroundColor="#FFFFFF"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="0dp"
-                        app:strokeColor="#4CAF82"
-                        app:strokeWidth="1dp">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="12dp">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="✦"
-                                android:textColor="#4CAF82"
-                                android:textSize="11sp" />
-                            <TextView
-                                android:id="@+id/tvAiMatch"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="4dp"
-                                android:text="95% AI Match"
-                                android:textColor="#4CAF82"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
+
 
                 </LinearLayout>
 
